@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
+    <style>
+      .profile-half {
+           padding-top: 25px;
+           width: 55%;
+           float: left;
+           padding-right: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <h1>Functional Go Code: Monads</h1>
+
+     <h2>Why?</h2>     
+     <p>
+       Monads and the concept of <em>Chainable computation</em> is something that I'm still getting my head around. While researching I've found some great sources, but special mention needs to go to <a href="https://blog.jcoglan.com/2011/03/05/translation-from-haskell-to-javascript-of-selected-portions-of-the-best-introduction-to-monads-ive-ever-read/">James Coglan's site</a>. If you've not been there yet, I suggest you go read up on it now as well as <a href="http://blog.sigfpe.com/2006/08/you-could-have-invented-monads-and.html">Dan Piponi's post</a> which James, in turn, based his stuff on. I will effectively be imitating in this post by rewriting an example in Go that they've covered in Javascript and Haskell respectively.
+     </p>
+     <h2>The Idea</h2>
+     As I understand it the monads concept is used to do things like accomplish function chaining and keep mutable state away from functional code. This post demonstrates an example of the prior usage.
+     <p>
+     <h2>The Complete Code</h2>
+     The intended output and code
+     <script src="https://gist.github.com/svanellewee/933641e3c805bf035719.js"></script>
+     <h2>Stuff I've learnt</h2>
+     <ul>
+       <li>Haskell's syntax really makes Monadic code a lot more readable, especially when using <em> >>= </em> or "bind". James created a <a href="https://blog.jcoglan.com/2011/03/11/promises-are-the-monad-of-asynchronous-programming/">pipe</a> function to fix his readability problems. In this example I called mine "chain". </li>
+       <li>Since it is interesting to compare Haskell and Go's type systems I've added some haskell snippets in my Go-code before declarations.</li>       
+     </ul>     
+     
+     <h2>How would you make this better?</h2>
+     
+     
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'svanellewee'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>    
+  </body>
+</html>
