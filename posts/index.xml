@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Peculiar Computing</title>
-    <link>http://example.org/posts/</link>
+    <link>http://svanellewee.github.io/posts/</link>
     <description>Recent content in Posts on Peculiar Computing</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 03 Jan 2019 21:42:31 +0200</lastBuildDate>
     
-	<atom:link href="http://example.org/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://svanellewee.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Bootstrap a Linux</title>
-      <link>http://example.org/posts/bootstrap-a-linux/</link>
+      <link>http://svanellewee.github.io/posts/bootstrap-a-linux/</link>
       <pubDate>Thu, 03 Jan 2019 21:42:31 +0200</pubDate>
       
-      <guid>http://example.org/posts/bootstrap-a-linux/</guid>
+      <guid>http://svanellewee.github.io/posts/bootstrap-a-linux/</guid>
       <description>How to bootstrap your a baby linux operating system using Ubuntu. Why would I do this? I want to understand the tools I use. Docker is an extension of an idea that has actually been in the kernel for a while using cgroups etc. (Just a nicer package) BSD jails etc. What other treasures exists in the kernel? The only way to know is to learn more about linux. How do you learn about a project?</description>
     </item>
     
