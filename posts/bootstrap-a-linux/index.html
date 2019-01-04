@@ -167,7 +167,7 @@ Maybe I&rsquo;m a masochist.</p>
 <li>partition into a bootable and system partitions</li>
 <li>format both partitions as ext2</li>
 <li>install a boot loader on the boot partition</li>
-<li>copy from your ubuntu system /boot directory the kernel and init system to your system partition</li>
+<li>copy from your ubuntu kernel and initrd files.</li>
 <li>boot the virtual machine using the new virtual disk</li>
 </ul>
 
@@ -219,8 +219,62 @@ mount /dev/mapper/loop0p2 /mnt/pocket/root_mount
 
 <p>From what i understand I&rsquo;m install a bios based boot loader to my virtual drive&rsquo;s boot partition</p>
 
+<h2 id="copy-from-your-ubuntu-kernel-and-initrd-files">copy from your ubuntu kernel and initrd files.</h2>
+
+<p>So first we make a place for the new files in our drive&rsquo;s system partition.</p>
+
 <pre><code class="language-bash">mkdir -p /mnt/pocket/root_mount/kernels/
 </code></pre>
+
+<p>then we copy the linux kernel</p>
+
+<pre><code class="language-bash">cp /boot/vmlinuz-4.10.0-27-generic /mnt/pocket/root_mount/kernels/
+</code></pre>
+
+<p>then we copy the matching &ldquo;initial ram disk&rdquo; file. This is like a small linux root filesystem that we can use to access the system before the real system is loaded</p>
+
+<pre><code class="language-bash">cp /boot/initrd.img-4.10.0-27-generic /mnt/pocket/root_mount/kernels/
+</code></pre>
+
+<h2 id="boot-the-virtual-machine-using-the-new-virtual-disk">boot the virtual machine using the new virtual disk</h2>
+
+<p>So here we boot into the virtual machine using &ldquo;Qemu&rdquo;.</p>
+
+<pre><code class="language-bash">qemu-system-x86_64 -drive format=raw,file=mink.img -m 1G
+</code></pre>
+
+<p>The thing is if everything goes okay the only thing you&rsquo;ll be seeing is the following:</p>
+
+<p><img src="/grub-init.png" alt="Grub Prompt" /></p>
+
+<p>Not very helpful. What now?</p>
+
+<p>Well, it looks like grub prompt is actually pretty simple to use. For example, we can list all the partitions available to the system.</p>
+
+<pre><code class="language-bash">grub&gt; ls 
+(hd0) (hd0, msdos2) (hd0, msdos1) (fd0)
+</code></pre>
+
+<p>The important entries here would be <code>(hd0, msdos2)</code> and <code>(hd0, msdos1)</code>. Those would be the <code>system</code> and <code>boot</code> partitions respectively. To allow us toe boot the first thing that must be done is to set the current partition to where the kernel is located. Grub allows us to set this using the <code>root</code> command. This is similar to the way one can set DOS&rsquo;s current drive to <code>C:</code> for harddrive or <code>A:</code> for floppy drive.</p>
+
+<pre><code class="language-bash">grub&gt; set root=(hd0, msdos1)
+grub&gt; ls /
+lost+found/ kernels/
+</code></pre>
+
+<p>Our files lives in the <code>kernels</code> directory..</p>
+
+<p><img src="/grub-navigate.png" alt="Grub Navigation" /></p>
+
+<p>To start the os we need to tell grub where the kernel and the initrd files are located. For grub you specify it as follows.</p>
+
+<p><img src="/grub-start-os.png" alt="Grub Starting Linux" /></p>
+
+<p>The <code>boot</code> keyword triggers the actual booting process. <code>Tab</code> actually autocompletes filenames!</p>
+
+<h2 id="booting-success">Booting success!</h2>
+
+<p><img src="/itworked.png" alt="Booted Ubuntu Linux Kernel" /></p>
 </div>
 
   <footer class="article-footer">
