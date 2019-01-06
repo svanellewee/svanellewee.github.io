@@ -14,23 +14,23 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/solarized_dark.min.css">
-    <title>Bootstrap a Linux - Peculiar Computing</title>
+    <title>Creating a minimal environment to bootstrap Linux Kernel - Peculiar Computing</title>
     
-<meta name="description" content="How to bootstrap your a baby linux operating system using Ubuntu. Why would I do this? I want to understand the tools I use. Docker is an extension of an idea that has actually been in the kernel for a while using cgroups etc. (Just a nicer package) BSD jails etc. What other treasures exists in the kernel? The only way to know is to learn more about linux. How do you learn about a project?">
+<meta name="description" content="Creating a minimal environment to bootstrap the Linux Kernel. Intro Here are some notes for creating a very minimal test environment for the linux kernel. This version will re-use the host operating system&amp;rsquo;s kernel to get things going. Follow-up posts will compile the kernel and initial ramdisk from scratch.Assumptions  We&amp;rsquo;re using an Ubuntu 16.04 as our host machine. It comes with almost all the applications we need to build the virtual disk and machine.">
 
-<meta property="og:title" content="Bootstrap a Linux - Peculiar Computing">
+<meta property="og:title" content="Creating a minimal environment to bootstrap Linux Kernel - Peculiar Computing">
 <meta property="og:type" content="article">
 <meta property="og:url" content="http://svanellewee.github.io/posts/bootstrap-a-linux/">
 <meta property="og:image" content="http://svanellewee.github.io/images/default.png">
 <meta property="og:site_name" content="Peculiar Computing">
-<meta property="og:description" content="How to bootstrap your a baby linux operating system using Ubuntu. Why would I do this? I want to understand the tools I use. Docker is an extension of an idea that has actually been in the kernel for a while using cgroups etc. (Just a nicer package) BSD jails etc. What other treasures exists in the kernel? The only way to know is to learn more about linux. How do you learn about a project?">
+<meta property="og:description" content="Creating a minimal environment to bootstrap the Linux Kernel. Intro Here are some notes for creating a very minimal test environment for the linux kernel. This version will re-use the host operating system&amp;rsquo;s kernel to get things going. Follow-up posts will compile the kernel and initial ramdisk from scratch.Assumptions  We&amp;rsquo;re using an Ubuntu 16.04 as our host machine. It comes with almost all the applications we need to build the virtual disk and machine.">
 <meta property="og:locale" content="ja_JP">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="Peculiar Computing">
 <meta name="twitter:url" content="http://svanellewee.github.io/posts/bootstrap-a-linux/">
-<meta name="twitter:title" content="Bootstrap a Linux - Peculiar Computing">
-<meta name="twitter:description" content="How to bootstrap your a baby linux operating system using Ubuntu. Why would I do this? I want to understand the tools I use. Docker is an extension of an idea that has actually been in the kernel for a while using cgroups etc. (Just a nicer package) BSD jails etc. What other treasures exists in the kernel? The only way to know is to learn more about linux. How do you learn about a project?">
+<meta name="twitter:title" content="Creating a minimal environment to bootstrap Linux Kernel - Peculiar Computing">
+<meta name="twitter:description" content="Creating a minimal environment to bootstrap the Linux Kernel. Intro Here are some notes for creating a very minimal test environment for the linux kernel. This version will re-use the host operating system&amp;rsquo;s kernel to get things going. Follow-up posts will compile the kernel and initial ramdisk from scratch.Assumptions  We&amp;rsquo;re using an Ubuntu 16.04 as our host machine. It comes with almost all the applications we need to build the virtual disk and machine.">
 <meta name="twitter:image" content="http://svanellewee.github.io/images/default.png">
 
 
@@ -42,7 +42,7 @@
       "@type": "WebPage",
       "@id":"http://svanellewee.github.io/"
     },
-    "headline": "Bootstrap a Linux - Peculiar Computing",
+    "headline": "Creating a minimal environment to bootstrap Linux Kernel - Peculiar Computing",
     "image": {
       "@type": "ImageObject",
       "url": "http://svanellewee.github.io/images/default.png",
@@ -65,7 +65,8 @@
         "height": 60
       }
     },
-    "description": "How to bootstrap your a baby linux operating system using Ubuntu. Why would I do this? I want to understand the tools I use. Docker is an extension of an idea that has actually been in the kernel for a while using cgroups etc. (Just a nicer package) BSD jails etc. What other treasures exists in the kernel? The only way to know is to learn more about linux. How do you learn about a project?"
+    "description": "Creating a minimal environment to bootstrap the Linux Kernel. Intro Here are some notes for creating a very minimal test environment for the linux kernel. This version will re-use the host operating system&rsquo;s kernel to get things going. Follow-up posts will compile the kernel and initial ramdisk from scratch.
+Assumptions  We&rsquo;re using an Ubuntu 16.04 as our host machine. It comes with almost all the applications we need to build the virtual disk and machine."
   }
 </script>
 
@@ -111,7 +112,7 @@
         
         <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="http://svanellewee.github.io/posts/" itemprop="url"><span itemprop="title">posts</span></a></li>
         
-        <li class="active">Bootstrap a Linux</li>
+        <li class="active">Creating a minimal environment to bootstrap Linux Kernel</li>
       </ol>
     </nav>
 
@@ -123,44 +124,30 @@
       
     </ul>
 
-    <h1 class="title">Bootstrap a Linux</h1>
+    <h1 class="title">Creating a minimal environment to bootstrap Linux Kernel</h1>
   </header>
 
   
 
   <div class="article-body">
 
-<h1 id="how-to-bootstrap-your-a-baby-linux-operating-system-using-ubuntu">How to bootstrap your a baby linux operating system using Ubuntu.</h1>
+<h1 id="creating-a-minimal-environment-to-bootstrap-the-linux-kernel">Creating a minimal environment to bootstrap the Linux Kernel.</h1>
 
-<h2 id="why-would-i-do-this">Why would I do this?</h2>
+<h2 id="intro">Intro</h2>
 
-<p>I want to understand the tools I use. Docker is an extension of an idea that has actually been in the kernel for a while using cgroups etc. (Just a nicer package)
-BSD jails etc.
-What other treasures exists in the kernel? The only way to know is to learn more about linux.
-How do you learn about a project? Kafka? Kubernetes? Install it! But oh, how does one install linux? You can do it using your package manager. But you didnt learn much did you?</p>
-
-<h2 id="install-from-scratch">Install from scratch?</h2>
-
-<p>Why not linux from scratch? I have a life. gcc to cross compile gcc to build something else etc etc. Good reasons(Name them) but it takes SO long! Any educational value this project has get&rsquo;s lost in the waiting time. The reasons <em>I</em> stopped was that <em>I</em> actually ended up getting compilation errors after hours of waiting and copy and pasting. I followed instructions, but the results was discouraging.</p>
-
-<h2 id="why-not-gentoo-arch">Why not gentoo/arch?</h2>
-
-<p>Another, copy and paste, follow this method etc etc. better than LFS but still pretty tricky. I have a colleague who actually said &ldquo;I&rsquo;m getting better at installing Gentoo!&rdquo; Pros the bootstrapping compilation steps are done for you. Cons: Still assumes a lot of the user.</p>
-
-<h2 id="just-why">Just why?</h2>
-
-<p>I would like to learn more about Linux tools/systems:
-dd? kpartx loopback devices parted/fdisk the linux kernel itself?
-Maybe I&rsquo;m a masochist.</p>
+<p>Here are some notes for creating a very minimal test environment for the linux kernel. This version will re-use the host operating system&rsquo;s kernel to get things going. Follow-up posts will compile the kernel and initial ramdisk from scratch.</p>
 
 <h1 id="assumptions">Assumptions</h1>
 
 <ul>
-<li>I&rsquo;m going to use a virtual machine</li>
-<li>I&rsquo;m going to assume that we still use a BIOS based machine (What&rsquo;s a BIOS? How old are you? Have you even Doom&rsquo;ed bro?)</li>
+<li>We&rsquo;re using an Ubuntu 16.04 as our host machine. It comes with almost all the applications we need to build the virtual disk and machine. (We&rsquo;ll also be &ldquo;borrowing&rdquo; the host&rsquo;s kernel and init ram disk files.)</li>
+<li>Qemu will be used as the virtualisation software.</li>
+<li>For simplicity a BIOS based architecture will be assumed.</li>
 </ul>
 
 <h1 id="method">Method</h1>
+
+<p>To summarize here&rsquo;s the steps that we&rsquo;d be following:</p>
 
 <ul>
 <li>create a virtual disk</li>
@@ -173,19 +160,30 @@ Maybe I&rsquo;m a masochist.</p>
 
 <h2 id="create-the-virtual-disk">create the virtual disk</h2>
 
-<p>The following creates a file called &ldquo;mink.img&rdquo; filled with 200Megs worth of zeros.</p>
+<p>In order to create our virtual &ldquo;hard drive&rdquo; we need to create a blank file that can be used to simulate an empty hard disk. This can be accomplished using the <code>dd</code> command.</p>
 
-<pre><code class="language-bash">dd if=/dev/zero of=mink.img count=200 bs=1M
+<p><code>dd</code> is quite a dumb command that just moves blocks from one file to another. To illustrate this look at the following:</p>
+
+<pre><code class="language-bash">dd if=/dev/zero of=mink.img count=200 bs=1M   # create  file called &quot;mink.img&quot; that is 200Mbytes big
 </code></pre>
 
-<p>Here is some magic I&rsquo;d like to explain. <code>dd</code> is just a very DUMB copy command. It takes blocks from one file and plop it to another. In this case it copies data from the special <code>zero</code> file and puts it into the new <code>.img</code> file.</p>
+<p>The above copies data from the special <code>zero</code> file (provided in most unix like operating systems) and puts it into the newly created <code>.img</code> file.</p>
 
 <h2 id="partition-into-bootable-and-system-partitions">partition into bootable and system partitions</h2>
 
+<p>Our &ldquo;hard drive&rdquo; is empty and still pretty useless. To fix that we need to split it up into 2 parts</p>
+
+<ul>
+<li>the boot partition (the bootloader can live there)</li>
+<li>the system partition (the kernel files will live here)</li>
+</ul>
+
+<p>Here is a little problem the more astute reader will notice. <em>How does one partition a file</em>? Remember, in linux everything is treated like files anyway. For example <code>/dev/sda1</code> is a file in the <code>/dev</code> directory that represents 1 partition on a hard drive. So we can use the same tools we use to partition the real hard drive on our fake, virtual drive.</p>
+
+<p>There are a few tools that can partition the drive, but in this example we&rsquo;ll be using <code>parted</code>. To split the <code>.img</code> file into the required boot and system partitions the following incantation can be used:</p>
+
 <pre><code class="language-bash">parted --script mink.img mklabel msdos mkpart p ext2 1 20 set 1 boot on mkpart p ext2 21 200
 </code></pre>
-
-<p><code>parted</code> is a tool you can use to partition the harddisk. There&rsquo;s a graphical version (gparted) also but to be succicnt I&rsquo;m using the encantation.</p>
 
 <p>Let&rsquo;s break it up:</p>
 
@@ -197,27 +195,43 @@ mkpart p ext2 21 200 # make another partition from Meg 21 and Meg 200
 
 <h2 id="format-partitions-as-ext2">format partitions as ext2</h2>
 
-<p>To format a file (in this case &ldquo;mink.img&rdquo;) I need to be able to treat it like a drive. That&rsquo;s what loopback devices are. They make the file look like a disk drive that can be mounted or even formatted! So let&rsquo;s see how we format a file like a drive:</p>
+<p>To format our paritions we need to turn them into <a href="https://wiki.osdev.org/Loopback_Device">loopback devices</a>. This is a way &ldquo;to interpret files as real devices.&rdquo;</p>
 
 <pre><code class="language-bash">kpartx -av mink.img  # create the loopback device and split it over 2 partitions (kpartx splits it up for you)
 sleep 10  # this isnt instant, so wait 10 seconds (overkill)
-mkfs.ext2  /dev/mapper/loop0p1 # format the boot partition
+</code></pre>
+
+<p>In our case this creates 2 files:</p>
+
+<ul>
+<li><code>/dev/mapper/loop0p1</code> - represents the boot partition</li>
+<li><code>/dev/mapper/loop0p2</code> - represents the system partition</li>
+</ul>
+
+<p>Which represents the paritions <code>parted</code> created on the virtual drive. Now that we have 2 &ldquo;devices&rdquo; we can legitimately format them as if they&rsquo;re partitions on a real drive.</p>
+
+<pre><code class="language-bash">mkfs.ext2  /dev/mapper/loop0p1 # format the boot partition
 mkfs.ext2  /dev/mapper/loop0p2 # format the system partition
-# Finally mount both files so we can access and work on it.
-mount /dev/mapper/loop0p1 /mnt/pocket/boot_mount 
+</code></pre>
+
+<p>Finally mount both files so we can access and work on it.</p>
+
+<pre><code class="language-bash">mount /dev/mapper/loop0p1 /mnt/pocket/boot_mount 
 mount /dev/mapper/loop0p2 /mnt/pocket/root_mount
 </code></pre>
 
-<p>Now I&rsquo;ve mounted a file as 2 separate partitions. The virtual drive is finally useful. Now we can start installing things.</p>
+<p>Now we can start installing things.</p>
 
 <h2 id="install-a-boot-loader-on-the-boot-partition">install a boot loader on the boot partition</h2>
 
-<p>The below is still a little fuzzy to me, but so far this seems to have worked:</p>
+<p>A boot loader is the first program that runs when the computer starts. In our case we&rsquo;ll be using the GRand Unified Bootloader or <a href="https://www.gnu.org/software/grub/">GRUB</a></p>
+
+<p>This installs the boot loader to the mounted boot partition of our file. <code>/dev/loop0</code> is the loopback representation of the entire file (disregarding partitions)</p>
 
 <pre><code class="language-bash">grub-install --no-floppy  --modules=&quot;biosdisk part_msdos ext2 configfile normal multiboot&quot; --root-directory=/mnt/pocket/boot_mount/ /dev/loop0
 </code></pre>
 
-<p>From what i understand I&rsquo;m install a bios based boot loader to my virtual drive&rsquo;s boot partition</p>
+<p><code>TODO</code> Add a reference here.</p>
 
 <h2 id="copy-from-your-ubuntu-kernel-and-initrd-files">copy from your ubuntu kernel and initrd files.</h2>
 
@@ -302,7 +316,7 @@ lost+found/ kernels/
     </div>
     <div class="list-group">
       
-      <a href="http://svanellewee.github.io/posts/bootstrap-a-linux/" class="list-group-item">Bootstrap a Linux</a>
+      <a href="http://svanellewee.github.io/posts/bootstrap-a-linux/" class="list-group-item">Creating a minimal environment to bootstrap Linux Kernel</a>
       
     </div>
   </section>

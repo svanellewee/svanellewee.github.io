@@ -12,12 +12,13 @@
     
     
     <item>
-      <title>Bootstrap a Linux</title>
+      <title>Creating a minimal environment to bootstrap Linux Kernel</title>
       <link>http://svanellewee.github.io/posts/bootstrap-a-linux/</link>
       <pubDate>Thu, 03 Jan 2019 21:42:31 +0200</pubDate>
       
       <guid>http://svanellewee.github.io/posts/bootstrap-a-linux/</guid>
-      <description>How to bootstrap your a baby linux operating system using Ubuntu. Why would I do this? I want to understand the tools I use. Docker is an extension of an idea that has actually been in the kernel for a while using cgroups etc. (Just a nicer package) BSD jails etc. What other treasures exists in the kernel? The only way to know is to learn more about linux. How do you learn about a project?</description>
+      <description>Creating a minimal environment to bootstrap the Linux Kernel. Intro Here are some notes for creating a very minimal test environment for the linux kernel. This version will re-use the host operating system&amp;rsquo;s kernel to get things going. Follow-up posts will compile the kernel and initial ramdisk from scratch.
+Assumptions  We&amp;rsquo;re using an Ubuntu 16.04 as our host machine. It comes with almost all the applications we need to build the virtual disk and machine.</description>
     </item>
     
   </channel>
