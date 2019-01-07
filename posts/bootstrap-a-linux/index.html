@@ -14,23 +14,23 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/solarized_dark.min.css">
-    <title>Creating a minimal environment to bootstrap Linux Kernel - Peculiar Computing</title>
+    <title>Creating a minimal environment to bootstrap the Linux Kernel - Peculiar Computing</title>
     
-<meta name="description" content="Creating a minimal environment to bootstrap the Linux Kernel. Intro Here are some notes for creating a very minimal test environment for the linux kernel. This version will re-use the host operating system&amp;rsquo;s kernel to get things going. Follow-up posts will compile the kernel and initial ramdisk from scratch.Assumptions  We&amp;rsquo;re using an Ubuntu 16.04 as our host machine. It comes with almost all the applications we need to build the virtual disk and machine.">
+<meta name="description" content="Intro Here are some notes for creating a very minimal test environment for the linux kernel. This version will re-use the host operating system&amp;rsquo;s kernel to get things going. Follow-up posts will compile the kernel and initial ramdisk from scratch.Assumptions  We&amp;rsquo;re using an Ubuntu 16.04 as our host machine. It comes with almost all the applications we need to build the virtual disk and machine. (We&amp;rsquo;ll also be &amp;ldquo;borrowing&amp;rdquo; the host&amp;rsquo;s kernel and init ram disk files.">
 
-<meta property="og:title" content="Creating a minimal environment to bootstrap Linux Kernel - Peculiar Computing">
+<meta property="og:title" content="Creating a minimal environment to bootstrap the Linux Kernel - Peculiar Computing">
 <meta property="og:type" content="article">
 <meta property="og:url" content="http://svanellewee.github.io/posts/bootstrap-a-linux/">
 <meta property="og:image" content="http://svanellewee.github.io/images/default.png">
 <meta property="og:site_name" content="Peculiar Computing">
-<meta property="og:description" content="Creating a minimal environment to bootstrap the Linux Kernel. Intro Here are some notes for creating a very minimal test environment for the linux kernel. This version will re-use the host operating system&amp;rsquo;s kernel to get things going. Follow-up posts will compile the kernel and initial ramdisk from scratch.Assumptions  We&amp;rsquo;re using an Ubuntu 16.04 as our host machine. It comes with almost all the applications we need to build the virtual disk and machine.">
+<meta property="og:description" content="Intro Here are some notes for creating a very minimal test environment for the linux kernel. This version will re-use the host operating system&amp;rsquo;s kernel to get things going. Follow-up posts will compile the kernel and initial ramdisk from scratch.Assumptions  We&amp;rsquo;re using an Ubuntu 16.04 as our host machine. It comes with almost all the applications we need to build the virtual disk and machine. (We&amp;rsquo;ll also be &amp;ldquo;borrowing&amp;rdquo; the host&amp;rsquo;s kernel and init ram disk files.">
 <meta property="og:locale" content="ja_JP">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="Peculiar Computing">
 <meta name="twitter:url" content="http://svanellewee.github.io/posts/bootstrap-a-linux/">
-<meta name="twitter:title" content="Creating a minimal environment to bootstrap Linux Kernel - Peculiar Computing">
-<meta name="twitter:description" content="Creating a minimal environment to bootstrap the Linux Kernel. Intro Here are some notes for creating a very minimal test environment for the linux kernel. This version will re-use the host operating system&amp;rsquo;s kernel to get things going. Follow-up posts will compile the kernel and initial ramdisk from scratch.Assumptions  We&amp;rsquo;re using an Ubuntu 16.04 as our host machine. It comes with almost all the applications we need to build the virtual disk and machine.">
+<meta name="twitter:title" content="Creating a minimal environment to bootstrap the Linux Kernel - Peculiar Computing">
+<meta name="twitter:description" content="Intro Here are some notes for creating a very minimal test environment for the linux kernel. This version will re-use the host operating system&amp;rsquo;s kernel to get things going. Follow-up posts will compile the kernel and initial ramdisk from scratch.Assumptions  We&amp;rsquo;re using an Ubuntu 16.04 as our host machine. It comes with almost all the applications we need to build the virtual disk and machine. (We&amp;rsquo;ll also be &amp;ldquo;borrowing&amp;rdquo; the host&amp;rsquo;s kernel and init ram disk files.">
 <meta name="twitter:image" content="http://svanellewee.github.io/images/default.png">
 
 
@@ -42,7 +42,7 @@
       "@type": "WebPage",
       "@id":"http://svanellewee.github.io/"
     },
-    "headline": "Creating a minimal environment to bootstrap Linux Kernel - Peculiar Computing",
+    "headline": "Creating a minimal environment to bootstrap the Linux Kernel - Peculiar Computing",
     "image": {
       "@type": "ImageObject",
       "url": "http://svanellewee.github.io/images/default.png",
@@ -65,8 +65,8 @@
         "height": 60
       }
     },
-    "description": "Creating a minimal environment to bootstrap the Linux Kernel. Intro Here are some notes for creating a very minimal test environment for the linux kernel. This version will re-use the host operating system&rsquo;s kernel to get things going. Follow-up posts will compile the kernel and initial ramdisk from scratch.
-Assumptions  We&rsquo;re using an Ubuntu 16.04 as our host machine. It comes with almost all the applications we need to build the virtual disk and machine."
+    "description": "Intro Here are some notes for creating a very minimal test environment for the linux kernel. This version will re-use the host operating system&rsquo;s kernel to get things going. Follow-up posts will compile the kernel and initial ramdisk from scratch.
+Assumptions  We&rsquo;re using an Ubuntu 16.04 as our host machine. It comes with almost all the applications we need to build the virtual disk and machine. (We&rsquo;ll also be &ldquo;borrowing&rdquo; the host&rsquo;s kernel and init ram disk files."
   }
 </script>
 
@@ -112,7 +112,7 @@ Assumptions  We&rsquo;re using an Ubuntu 16.04 as our host machine. It comes wit
         
         <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="http://svanellewee.github.io/posts/" itemprop="url"><span itemprop="title">posts</span></a></li>
         
-        <li class="active">Creating a minimal environment to bootstrap Linux Kernel</li>
+        <li class="active">Creating a minimal environment to bootstrap the Linux Kernel</li>
       </ol>
     </nav>
 
@@ -124,20 +124,18 @@ Assumptions  We&rsquo;re using an Ubuntu 16.04 as our host machine. It comes wit
       
     </ul>
 
-    <h1 class="title">Creating a minimal environment to bootstrap Linux Kernel</h1>
+    <h1 class="title">Creating a minimal environment to bootstrap the Linux Kernel</h1>
   </header>
 
   
 
   <div class="article-body">
 
-<h1 id="creating-a-minimal-environment-to-bootstrap-the-linux-kernel">Creating a minimal environment to bootstrap the Linux Kernel.</h1>
-
 <h2 id="intro">Intro</h2>
 
 <p>Here are some notes for creating a very minimal test environment for the linux kernel. This version will re-use the host operating system&rsquo;s kernel to get things going. Follow-up posts will compile the kernel and initial ramdisk from scratch.</p>
 
-<h1 id="assumptions">Assumptions</h1>
+<h2 id="assumptions">Assumptions</h2>
 
 <ul>
 <li>We&rsquo;re using an Ubuntu 16.04 as our host machine. It comes with almost all the applications we need to build the virtual disk and machine. (We&rsquo;ll also be &ldquo;borrowing&rdquo; the host&rsquo;s kernel and init ram disk files.)</li>
@@ -145,7 +143,7 @@ Assumptions  We&rsquo;re using an Ubuntu 16.04 as our host machine. It comes wit
 <li>For simplicity a BIOS based architecture will be assumed.</li>
 </ul>
 
-<h1 id="method">Method</h1>
+<h2 id="method">Method</h2>
 
 <p>To summarize here&rsquo;s the steps that we&rsquo;d be following:</p>
 
@@ -158,18 +156,18 @@ Assumptions  We&rsquo;re using an Ubuntu 16.04 as our host machine. It comes wit
 <li>boot the virtual machine using the new virtual disk</li>
 </ul>
 
-<h2 id="create-the-virtual-disk">create the virtual disk</h2>
+<h3 id="create-the-virtual-disk">create the virtual disk</h3>
 
 <p>In order to create our virtual &ldquo;hard drive&rdquo; we need to create a blank file that can be used to simulate an empty hard disk. This can be accomplished using the <code>dd</code> command.</p>
 
 <p><code>dd</code> is quite a dumb command that just moves blocks from one file to another. To illustrate this look at the following:</p>
 
-<pre><code class="language-bash">dd if=/dev/zero of=mink.img count=200 bs=1M   # create  file called &quot;mink.img&quot; that is 200Mbytes big
+<pre><code class="language-bash">dd if=/dev/zero of=virtual-drive.img count=200 bs=1M   # create  file called &quot;virtual-drive.img&quot; that is 200Mbytes big
 </code></pre>
 
 <p>The above copies data from the special <code>zero</code> file (provided in most unix like operating systems) and puts it into the newly created <code>.img</code> file.</p>
 
-<h2 id="partition-into-bootable-and-system-partitions">partition into bootable and system partitions</h2>
+<h3 id="partition-into-bootable-and-system-partitions">partition into bootable and system partitions</h3>
 
 <p>Our &ldquo;hard drive&rdquo; is empty and still pretty useless. To fix that we need to split it up into 2 parts</p>
 
@@ -182,7 +180,7 @@ Assumptions  We&rsquo;re using an Ubuntu 16.04 as our host machine. It comes wit
 
 <p>There are a few tools that can partition the drive, but in this example we&rsquo;ll be using <code>parted</code>. To split the <code>.img</code> file into the required boot and system partitions the following incantation can be used:</p>
 
-<pre><code class="language-bash">parted --script mink.img mklabel msdos mkpart p ext2 1 20 set 1 boot on mkpart p ext2 21 200
+<pre><code class="language-bash">parted --script virtual-drive.img mklabel msdos mkpart p ext2 1 20 set 1 boot on mkpart p ext2 21 200
 </code></pre>
 
 <p>Let&rsquo;s break it up:</p>
@@ -193,11 +191,11 @@ set 1 boot on # make partition 1 bootable
 mkpart p ext2 21 200 # make another partition from Meg 21 and Meg 200 
 </code></pre>
 
-<h2 id="format-partitions-as-ext2">format partitions as ext2</h2>
+<h3 id="format-partitions-as-ext2">format partitions as ext2</h3>
 
-<p>To format our paritions we need to turn them into <a href="https://wiki.osdev.org/Loopback_Device">loopback devices</a>. This is a way &ldquo;to interpret files as real devices.&rdquo;</p>
+<p>To format our partitions we need to turn them into <a href="https://wiki.osdev.org/Loopback_Device">loopback devices</a>. This is a way &ldquo;to interpret files as real devices.&rdquo;</p>
 
-<pre><code class="language-bash">kpartx -av mink.img  # create the loopback device and split it over 2 partitions (kpartx splits it up for you)
+<pre><code class="language-bash">kpartx -av virtual-drive.img  # create the loopback device and split it over 2 partitions (kpartx splits it up for you)
 sleep 10  # this isnt instant, so wait 10 seconds (overkill)
 </code></pre>
 
@@ -208,7 +206,7 @@ sleep 10  # this isnt instant, so wait 10 seconds (overkill)
 <li><code>/dev/mapper/loop0p2</code> - represents the system partition</li>
 </ul>
 
-<p>Which represents the paritions <code>parted</code> created on the virtual drive. Now that we have 2 &ldquo;devices&rdquo; we can legitimately format them as if they&rsquo;re partitions on a real drive.</p>
+<p>Which represents the partitions <code>parted</code> created on the virtual drive. Now that we have 2 &ldquo;devices&rdquo; we can legitimately format them as if they&rsquo;re partitions on a real drive.</p>
 
 <pre><code class="language-bash">mkfs.ext2  /dev/mapper/loop0p1 # format the boot partition
 mkfs.ext2  /dev/mapper/loop0p2 # format the system partition
@@ -216,45 +214,45 @@ mkfs.ext2  /dev/mapper/loop0p2 # format the system partition
 
 <p>Finally mount both files so we can access and work on it.</p>
 
-<pre><code class="language-bash">mount /dev/mapper/loop0p1 /mnt/pocket/boot_mount 
-mount /dev/mapper/loop0p2 /mnt/pocket/root_mount
+<pre><code class="language-bash">mount /dev/mapper/loop0p1 /mnt/boot_mount 
+mount /dev/mapper/loop0p2 /mnt/root_mount
 </code></pre>
 
 <p>Now we can start installing things.</p>
 
-<h2 id="install-a-boot-loader-on-the-boot-partition">install a boot loader on the boot partition</h2>
+<h3 id="install-a-boot-loader-on-the-boot-partition">install a boot loader on the boot partition</h3>
 
 <p>A boot loader is the first program that runs when the computer starts. In our case we&rsquo;ll be using the GRand Unified Bootloader or <a href="https://www.gnu.org/software/grub/">GRUB</a></p>
 
 <p>This installs the boot loader to the mounted boot partition of our file. <code>/dev/loop0</code> is the loopback representation of the entire file (disregarding partitions)</p>
 
-<pre><code class="language-bash">grub-install --no-floppy  --modules=&quot;biosdisk part_msdos ext2 configfile normal multiboot&quot; --root-directory=/mnt/pocket/boot_mount/ /dev/loop0
+<pre><code class="language-bash">grub-install --no-floppy  --modules=&quot;biosdisk part_msdos ext2 configfile normal multiboot&quot; --root-directory=/mnt/boot_mount/ /dev/loop0
 </code></pre>
 
-<p><code>TODO</code> Add a reference here.</p>
+<p>I found the original version of this command <a href="https://roscopeco.com/2013/08/12/creating-a-bootable-hard-disk-image-with-grub2/">here</a>. It&rsquo;s still not 100% clear to me what each module does.</p>
 
-<h2 id="copy-from-your-ubuntu-kernel-and-initrd-files">copy from your ubuntu kernel and initrd files.</h2>
+<h3 id="copy-from-your-ubuntu-kernel-and-initrd-files">copy from your ubuntu kernel and initrd files.</h3>
 
 <p>So first we make a place for the new files in our drive&rsquo;s system partition.</p>
 
-<pre><code class="language-bash">mkdir -p /mnt/pocket/root_mount/kernels/
+<pre><code class="language-bash">mkdir -p /mnt/root_mount/kernels/
 </code></pre>
 
 <p>then we copy the linux kernel</p>
 
-<pre><code class="language-bash">cp /boot/vmlinuz-4.10.0-27-generic /mnt/pocket/root_mount/kernels/
+<pre><code class="language-bash">cp /boot/vmlinuz-4.10.0-27-generic /mnt/root_mount/kernels/
 </code></pre>
 
 <p>then we copy the matching &ldquo;initial ram disk&rdquo; file. This is like a small linux root filesystem that we can use to access the system before the real system is loaded</p>
 
-<pre><code class="language-bash">cp /boot/initrd.img-4.10.0-27-generic /mnt/pocket/root_mount/kernels/
+<pre><code class="language-bash">cp /boot/initrd.img-4.10.0-27-generic /mnt/root_mount/kernels/
 </code></pre>
 
-<h2 id="boot-the-virtual-machine-using-the-new-virtual-disk">boot the virtual machine using the new virtual disk</h2>
+<h3 id="boot-the-virtual-machine-using-the-new-virtual-disk">boot the virtual machine using the new virtual disk</h3>
 
 <p>So here we boot into the virtual machine using &ldquo;Qemu&rdquo;.</p>
 
-<pre><code class="language-bash">qemu-system-x86_64 -drive format=raw,file=mink.img -m 1G
+<pre><code class="language-bash">qemu-system-x86_64 -drive format=raw,file=virtual-drive.img -m 1G
 </code></pre>
 
 <p>The thing is if everything goes okay the only thing you&rsquo;ll be seeing is the following:</p>
@@ -269,14 +267,14 @@ mount /dev/mapper/loop0p2 /mnt/pocket/root_mount
 (hd0) (hd0, msdos2) (hd0, msdos1) (fd0)
 </code></pre>
 
-<p>The important entries here would be <code>(hd0, msdos2)</code> and <code>(hd0, msdos1)</code>. Those would be the <code>system</code> and <code>boot</code> partitions respectively. To allow us toe boot the first thing that must be done is to set the current partition to where the kernel is located. Grub allows us to set this using the <code>root</code> command. This is similar to the way one can set DOS&rsquo;s current drive to <code>C:</code> for harddrive or <code>A:</code> for floppy drive.</p>
+<p>The important entries here would be <code>(hd0, msdos2)</code> and <code>(hd0, msdos1)</code>. Those would be the <code>system</code> and <code>boot</code> partitions respectively. To allow us to boot the first thing that must be done is to set the current partition to where the kernel is located. Grub allows us to set this using the <code>root</code> command. This is similar to the way one can set DOS&rsquo;s current drive to <code>C:</code> for harddrive or <code>A:</code> for floppy drive.</p>
 
-<pre><code class="language-bash">grub&gt; set root=(hd0, msdos1)
+<pre><code class="language-bash">grub&gt; set root=(hd0, msdos2)
 grub&gt; ls /
 lost+found/ kernels/
 </code></pre>
 
-<p>Our files lives in the <code>kernels</code> directory..</p>
+<p>As expected, our files lives are were we left them in the <code>kernels</code> directory..</p>
 
 <p><img src="/grub-navigate.png" alt="Grub Navigation" /></p>
 
@@ -286,9 +284,16 @@ lost+found/ kernels/
 
 <p>The <code>boot</code> keyword triggers the actual booting process. <code>Tab</code> actually autocompletes filenames!</p>
 
-<h2 id="booting-success">Booting success!</h2>
+<h3 id="booting-success">Booting success!</h3>
 
 <p><img src="/itworked.png" alt="Booted Ubuntu Linux Kernel" /></p>
+
+<h1 id="references">References</h1>
+
+<ul>
+<li><a href="https://roscopeco.com/2013/08/12/creating-a-bootable-hard-disk-image-with-grub2/">Ross Bamford&rsquo;s site</a></li>
+<li><a href="http://www.orangepi.org/Docs/Makingabootable.html">OrangePi.org</a></li>
+</ul>
 </div>
 
   <footer class="article-footer">
@@ -316,7 +321,7 @@ lost+found/ kernels/
     </div>
     <div class="list-group">
       
-      <a href="http://svanellewee.github.io/posts/bootstrap-a-linux/" class="list-group-item">Creating a minimal environment to bootstrap Linux Kernel</a>
+      <a href="http://svanellewee.github.io/posts/bootstrap-a-linux/" class="list-group-item">Creating a minimal environment to bootstrap the Linux Kernel</a>
       
     </div>
   </section>
