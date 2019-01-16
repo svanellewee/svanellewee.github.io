@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="pinterest" content="nopin">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.53" />
+
+
+
+<link rel="canonical" href="http://svanellewee.github.io/posts/create-a-grub-file/">
+
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/solarized_dark.min.css">
+    <title>Create a Grub File For Our Toy Linux - Peculiar Computing</title>
+    
+<meta name="description" content="So after the previous post I promised I was going to show how to make a nifty grub menu so that we won&amp;rsquo;t have to keep typing all the commands manually to boot the kernel.Turns out it&amp;rsquo;s quite simple:cat &amp;lt;&amp;lt;EOF | sudo tee /mnt/boot_mount/boot/grub/grub.cfg menuentry &amp;quot;Boot up the kernel&amp;quot; { set root=&amp;quot;(hd0,msdos2)&amp;quot; linux /kernels/vmlinuz-4.10.0-27-generic root=/dev/sda1 initrd /kernels/initrd.img-4.10.0-27-generic boot } EOF sync # you need to do this to commit the changes to the virtual drive # Now you can run the emulator again qemu-system-x86_64 -drive format=raw,file=virtual-disk.">
+
+<meta property="og:title" content="Create a Grub File For Our Toy Linux - Peculiar Computing">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://svanellewee.github.io/posts/create-a-grub-file/">
+<meta property="og:image" content="http://svanellewee.github.io/images/default.png">
+<meta property="og:site_name" content="Peculiar Computing">
+<meta property="og:description" content="So after the previous post I promised I was going to show how to make a nifty grub menu so that we won&amp;rsquo;t have to keep typing all the commands manually to boot the kernel.Turns out it&amp;rsquo;s quite simple:cat &amp;lt;&amp;lt;EOF | sudo tee /mnt/boot_mount/boot/grub/grub.cfg menuentry &amp;quot;Boot up the kernel&amp;quot; { set root=&amp;quot;(hd0,msdos2)&amp;quot; linux /kernels/vmlinuz-4.10.0-27-generic root=/dev/sda1 initrd /kernels/initrd.img-4.10.0-27-generic boot } EOF sync # you need to do this to commit the changes to the virtual drive # Now you can run the emulator again qemu-system-x86_64 -drive format=raw,file=virtual-disk.">
+<meta property="og:locale" content="ja_JP">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="Peculiar Computing">
+<meta name="twitter:url" content="http://svanellewee.github.io/posts/create-a-grub-file/">
+<meta name="twitter:title" content="Create a Grub File For Our Toy Linux - Peculiar Computing">
+<meta name="twitter:description" content="So after the previous post I promised I was going to show how to make a nifty grub menu so that we won&amp;rsquo;t have to keep typing all the commands manually to boot the kernel.Turns out it&amp;rsquo;s quite simple:cat &amp;lt;&amp;lt;EOF | sudo tee /mnt/boot_mount/boot/grub/grub.cfg menuentry &amp;quot;Boot up the kernel&amp;quot; { set root=&amp;quot;(hd0,msdos2)&amp;quot; linux /kernels/vmlinuz-4.10.0-27-generic root=/dev/sda1 initrd /kernels/initrd.img-4.10.0-27-generic boot } EOF sync # you need to do this to commit the changes to the virtual drive # Now you can run the emulator again qemu-system-x86_64 -drive format=raw,file=virtual-disk.">
+<meta name="twitter:image" content="http://svanellewee.github.io/images/default.png">
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id":"http://svanellewee.github.io/"
+    },
+    "headline": "Create a Grub File For Our Toy Linux - Peculiar Computing",
+    "image": {
+      "@type": "ImageObject",
+      "url": "http://svanellewee.github.io/images/default.png",
+      "height": 800,
+      "width": 800
+    },
+    "datePublished": "2019-01-16T20:48:58JST",
+    "dateModified": "2019-01-16T20:48:58JST",
+    "author": {
+      "@type": "Person",
+      "name": "Peculiar Computing"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Peculiar Computing",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "http://svanellewee.github.io/images/logo.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "description": "So after the previous post I promised I was going to show how to make a nifty grub menu so that we won&rsquo;t have to keep typing all the commands manually to boot the kernel.
+Turns out it&rsquo;s quite simple:
+cat &lt;&lt;EOF | sudo tee /mnt/boot_mount/boot/grub/grub.cfg menuentry &quot;Boot up the kernel&quot; { set root=&quot;(hd0,msdos2)&quot; linux /kernels/vmlinuz-4.10.0-27-generic root=/dev/sda1 initrd /kernels/initrd.img-4.10.0-27-generic boot } EOF sync # you need to do this to commit the changes to the virtual drive # Now you can run the emulator again qemu-system-x86_64 -drive format=raw,file=virtual-disk."
+  }
+</script>
+
+
+    <link href="http://svanellewee.github.io/css/styles.css" rel="stylesheet">
+    
+
+  </head>
+
+  <body>
+    
+    
+    
+
+    <header class="l-header">
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://svanellewee.github.io/">Peculiar Computing</a>
+          </div>
+
+          
+
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container">
+        
+<div class="row">
+  <div class="col-md-8">
+
+    <nav class="p-crumb">
+      <ol class="breadcrumb">
+        <li><a href="http://svanellewee.github.io/"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+        
+        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="http://svanellewee.github.io/posts/" itemprop="url"><span itemprop="title">posts</span></a></li>
+        
+        <li class="active">Create a Grub File For Our Toy Linux</li>
+      </ol>
+    </nav>
+
+    <article class="single">
+  <header>
+    <ul class="p-facts">
+      <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2019-01-16T20:48:58JST">Jan 16, 2019</time></li>
+      <li><i class="fa fa-bookmark" aria-hidden="true"></i><a href="http://svanellewee.github.io/posts/">posts</a></li>
+      
+    </ul>
+
+    <h1 class="title">Create a Grub File For Our Toy Linux</h1>
+  </header>
+
+  
+
+  <div class="article-body"><p>So after <a href="http://svanellewee.github.io/posts/bootstrap-a-linux/">the previous post</a> I promised I was going to show how to make a nifty grub menu so that we won&rsquo;t have to keep typing all the commands manually to boot the kernel.</p>
+
+<p>Turns out it&rsquo;s quite simple:</p>
+
+<pre><code class="language-bash">cat &lt;&lt;EOF | sudo tee /mnt/boot_mount/boot/grub/grub.cfg
+ menuentry &quot;Boot up the kernel&quot; {
+    set root=&quot;(hd0,msdos2)&quot;
+    linux /kernels/vmlinuz-4.10.0-27-generic root=/dev/sda1
+    initrd /kernels/initrd.img-4.10.0-27-generic
+    boot
+}
+EOF
+
+sync   # you need to do this to commit the changes to the virtual drive
+
+# Now you can run the emulator again
+qemu-system-x86_64 -drive format=raw,file=virtual-disk.img -m 1G
+</code></pre>
+
+<p>You should be greeted by the following</p>
+
+<p><img src="/grub-menu.png" alt="Grub Menu" /></p>
+</div>
+
+  <footer class="article-footer">
+    
+    
+    
+    
+    
+    
+  </footer>
+
+</article>
+
+
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "svanellewee" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+
+  <div class="col-md-4">
+    
+<aside class="l-sidebar">
+
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">LATESTS</div>
+    </div>
+    <div class="list-group">
+      
+      <a href="http://svanellewee.github.io/posts/create-a-grub-file/" class="list-group-item">Create a Grub File For Our Toy Linux</a>
+      
+      <a href="http://svanellewee.github.io/posts/bootstrap-a-linux/" class="list-group-item">Creating a minimal environment to bootstrap the Linux Kernel</a>
+      
+    </div>
+  </section>
+
+  
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">CATEGORY</div>
+    </div>
+    <div class="list-group">
+      
+    </div>
+  </section>
+  
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">TAG</div>
+    </div>
+    <div class="list-group">
+      
+    </div>
+  </section>
+  
+
+</aside>
+
+
+  </div>
+</div>
+
+      </div>
+    </main>
+
+    <footer class="l-footer">
+      <div class="container">
+        <p><span class="h-logo">&copy; Peculiar Computing</span></p>
+        <aside>
+          <p>Powered by <a href="https://gohugo.io/">Hugo</a>.</p>
+          <p><a href="https://github.com/dim0627/hugo_theme_beg">Beg</a> designed by <a href="http://yet.unresolved.xyz/">Daisuke Tsuji</a>.</p>
+        </aside>
+      </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

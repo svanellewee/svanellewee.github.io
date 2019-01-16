@@ -62,6 +62,29 @@
       <li><article class="li">
   <header>
     <ul class="p-facts">
+      <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2019-01-16T20:48:58JST">Jan 16, 2019</time></li>
+      <li><i class="fa fa-bookmark" aria-hidden="true"></i><a href="http://svanellewee.github.io/posts/">posts</a></li>
+      
+    </ul>
+    <h2 class="title"><a href="http://svanellewee.github.io/posts/create-a-grub-file/">Create a Grub File For Our Toy Linux</a></h2>
+  </header>
+
+  
+  <div class="summary">So after the previous post I promised I was going to show how to make a nifty grub menu so that we won&rsquo;t have to keep typing all the commands manually to boot the kernel.
+Turns out it&rsquo;s quite simple:
+cat &lt;&lt;EOF | sudo tee /mnt/boot_mount/boot/grub/grub.cfg menuentry &quot;Boot up the kernel&quot; { set root=&quot;(hd0,msdos2)&quot; linux /kernels/vmlinuz-4.10.0-27-generic root=/dev/sda1 initrd /kernels/initrd.img-4.10.0-27-generic boot } EOF sync # you need to do this to commit the changes to the virtual drive # Now you can run the emulator again qemu-system-x86_64 -drive format=raw,file=virtual-disk.</div>
+
+  
+  <footer>
+    <a href="http://svanellewee.github.io/posts/create-a-grub-file/" title="Create a Grub File For Our Toy Linux">Read More…</a>
+  </footer>
+  
+</article>
+</li>
+      
+      <li><article class="li">
+  <header>
+    <ul class="p-facts">
       <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2019-01-03T21:42:31JST">Jan 3, 2019</time></li>
       <li><i class="fa fa-bookmark" aria-hidden="true"></i><a href="http://svanellewee.github.io/posts/">posts</a></li>
       
@@ -96,6 +119,8 @@ Assumptions  We&rsquo;re using an Ubuntu 16.04 as our host machine. It comes wit
       <div class="panel-title">LATESTS</div>
     </div>
     <div class="list-group">
+      
+      <a href="http://svanellewee.github.io/posts/create-a-grub-file/" class="list-group-item">Create a Grub File For Our Toy Linux</a>
       
       <a href="http://svanellewee.github.io/posts/bootstrap-a-linux/" class="list-group-item">Creating a minimal environment to bootstrap the Linux Kernel</a>
       

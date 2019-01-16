@@ -6,10 +6,21 @@
     <description>Recent content in Posts on Peculiar Computing</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 03 Jan 2019 21:42:31 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 16 Jan 2019 20:48:58 +0200</lastBuildDate>
     
 	<atom:link href="http://svanellewee.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Create a Grub File For Our Toy Linux</title>
+      <link>http://svanellewee.github.io/posts/create-a-grub-file/</link>
+      <pubDate>Wed, 16 Jan 2019 20:48:58 +0200</pubDate>
+      
+      <guid>http://svanellewee.github.io/posts/create-a-grub-file/</guid>
+      <description>So after the previous post I promised I was going to show how to make a nifty grub menu so that we won&amp;rsquo;t have to keep typing all the commands manually to boot the kernel.
+Turns out it&amp;rsquo;s quite simple:
+cat &amp;lt;&amp;lt;EOF | sudo tee /mnt/boot_mount/boot/grub/grub.cfg menuentry &amp;quot;Boot up the kernel&amp;quot; { set root=&amp;quot;(hd0,msdos2)&amp;quot; linux /kernels/vmlinuz-4.10.0-27-generic root=/dev/sda1 initrd /kernels/initrd.img-4.10.0-27-generic boot } EOF sync # you need to do this to commit the changes to the virtual drive # Now you can run the emulator again qemu-system-x86_64 -drive format=raw,file=virtual-disk.</description>
+    </item>
     
     <item>
       <title>Creating a minimal environment to bootstrap the Linux Kernel</title>
