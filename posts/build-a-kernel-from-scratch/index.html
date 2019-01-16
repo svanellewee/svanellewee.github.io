@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="pinterest" content="nopin">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.53" />
+
+
+
+<link rel="canonical" href="http://svanellewee.github.io/posts/build-a-kernel-from-scratch/">
+
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/solarized_dark.min.css">
+    <title>Build a Kernel From Scratch - Peculiar Computing</title>
+    
+<meta name="description" content="In the previous post I borrowed the kernel files from my current Ubuntu 16.04 distribution. After that I set up a grub menu to speed up testing time.Let&amp;rsquo;s grab some kernel sourcecodewget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.20.2.tar.xz  The new goal is to compile the smallest most bare bones kernel we can muster. This according to Mitchel Humphrey&amp;rsquo;s excellent 2015 post on this allnoconfig is just the thing we need. I&amp;rsquo;m going to follow his example.">
+
+<meta property="og:title" content="Build a Kernel From Scratch - Peculiar Computing">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://svanellewee.github.io/posts/build-a-kernel-from-scratch/">
+<meta property="og:image" content="http://svanellewee.github.io/images/default.png">
+<meta property="og:site_name" content="Peculiar Computing">
+<meta property="og:description" content="In the previous post I borrowed the kernel files from my current Ubuntu 16.04 distribution. After that I set up a grub menu to speed up testing time.Let&amp;rsquo;s grab some kernel sourcecodewget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.20.2.tar.xz  The new goal is to compile the smallest most bare bones kernel we can muster. This according to Mitchel Humphrey&amp;rsquo;s excellent 2015 post on this allnoconfig is just the thing we need. I&amp;rsquo;m going to follow his example.">
+<meta property="og:locale" content="ja_JP">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="Peculiar Computing">
+<meta name="twitter:url" content="http://svanellewee.github.io/posts/build-a-kernel-from-scratch/">
+<meta name="twitter:title" content="Build a Kernel From Scratch - Peculiar Computing">
+<meta name="twitter:description" content="In the previous post I borrowed the kernel files from my current Ubuntu 16.04 distribution. After that I set up a grub menu to speed up testing time.Let&amp;rsquo;s grab some kernel sourcecodewget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.20.2.tar.xz  The new goal is to compile the smallest most bare bones kernel we can muster. This according to Mitchel Humphrey&amp;rsquo;s excellent 2015 post on this allnoconfig is just the thing we need. I&amp;rsquo;m going to follow his example.">
+<meta name="twitter:image" content="http://svanellewee.github.io/images/default.png">
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id":"http://svanellewee.github.io/"
+    },
+    "headline": "Build a Kernel From Scratch - Peculiar Computing",
+    "image": {
+      "@type": "ImageObject",
+      "url": "http://svanellewee.github.io/images/default.png",
+      "height": 800,
+      "width": 800
+    },
+    "datePublished": "2019-01-16T21:34:16JST",
+    "dateModified": "2019-01-16T21:34:16JST",
+    "author": {
+      "@type": "Person",
+      "name": "Peculiar Computing"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Peculiar Computing",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "http://svanellewee.github.io/images/logo.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "description": "In the previous post I borrowed the kernel files from my current Ubuntu 16.04 distribution. After that I set up a grub menu to speed up testing time.
+Let&rsquo;s grab some kernel sourcecode
+wget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.20.2.tar.xz  The new goal is to compile the smallest most bare bones kernel we can muster. This according to Mitchel Humphrey&rsquo;s excellent 2015 post on this allnoconfig is just the thing we need. I&rsquo;m going to follow his example."
+  }
+</script>
+
+
+    <link href="http://svanellewee.github.io/css/styles.css" rel="stylesheet">
+    
+
+  </head>
+
+  <body>
+    
+    
+    
+
+    <header class="l-header">
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://svanellewee.github.io/">Peculiar Computing</a>
+          </div>
+
+          
+
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container">
+        
+<div class="row">
+  <div class="col-md-8">
+
+    <nav class="p-crumb">
+      <ol class="breadcrumb">
+        <li><a href="http://svanellewee.github.io/"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+        
+        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="http://svanellewee.github.io/posts/" itemprop="url"><span itemprop="title">posts</span></a></li>
+        
+        <li class="active">Build a Kernel From Scratch</li>
+      </ol>
+    </nav>
+
+    <article class="single">
+  <header>
+    <ul class="p-facts">
+      <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2019-01-16T21:34:16JST">Jan 16, 2019</time></li>
+      <li><i class="fa fa-bookmark" aria-hidden="true"></i><a href="http://svanellewee.github.io/posts/">posts</a></li>
+      
+    </ul>
+
+    <h1 class="title">Build a Kernel From Scratch</h1>
+  </header>
+
+  
+
+  <div class="article-body">
+
+<p>In the <a href="http://svanellewee.github.io/posts/bootstrap-a-linux/">previous post</a> I borrowed the kernel files from my current Ubuntu 16.04 distribution. After that I <a href="http://svanellewee.github.io/posts/create-a-grub-file/">set up a grub menu</a> to speed up testing time.</p>
+
+<p>Let&rsquo;s grab some kernel sourcecode</p>
+
+<pre><code class="language-bash">wget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.20.2.tar.xz
+</code></pre>
+
+<p>The new goal is to compile the smallest most bare bones kernel we can muster. This according to Mitchel Humphrey&rsquo;s excellent 2015 post on this <code>allnoconfig</code> is just the thing we need. I&rsquo;m going to follow his example.</p>
+
+<pre><code class="language-bash">tar xvf linux-4.20.2.tar.xz
+cd linux-4.20.2
+make O=../outputfile allnoconfig    # O= specifies the output directory
+make O=../outputfile nconfig        # Enable a few things since allnoconfig is literally nothing!
+</code></pre>
+
+<p>Just for simplicity I&rsquo;m pasting his configuration here, but I still think you should read his post from top to bottom. It&rsquo;s really a great resource!</p>
+
+<p>The first section just enables the <code>printk</code> call and notes that we want a 64-bit kernel</p>
+
+<pre><code>[*] 64-bit kernel
+
+-&gt; General setup
+  -&gt; Configure standard kernel features
+[*] Enable support for printk
+</code></pre>
+
+<p>The next is interesting. This tells the compiler that the kernel must support an initial ram filesystem (Just like the one I borrowed from my linux /boot directory &ldquo;initrd*&ldquo;)</p>
+
+<pre><code>-&gt; General setup
+[*] Initial RAM filesystem and RAM disk (initramfs/initrd) support
+</code></pre>
+
+<p>The next is surprising. It seems the kernel is the thing that enables shebang (<code>#!</code>) lines in scripts? I always thought that was a bash function.</p>
+
+<pre><code>-&gt; Executable file formats / Emulations
+[*] Kernel support for ELF binaries
+[*] Kernel support for scripts starting with #!
+</code></pre>
+
+<p>Serial console is enabled as follows..</p>
+
+<pre><code>-&gt; Device Drivers
+  -&gt; Character devices
+[*] Enable TTY
+
+-&gt; Device Drivers
+  -&gt; Character devices
+    -&gt; Serial drivers
+[*] 8250/16550 and compatible serial support
+[*]   Console on 8250/16550 and compatible serial port
+</code></pre>
+
+<p>Now to enable some special purpose file systems..</p>
+
+<pre><code>-&gt; File systems
+  -&gt; Pseudo filesystems
+[*] /proc file system support
+[*] sysfs file system support
+</code></pre>
+
+<p>Save the settings and compile to the directory <code>../outputfile</code> as follows:</p>
+
+<pre><code>make O=../outputfile -j$(nproc)
+</code></pre>
+
+<p>The end result should appear when you see this:</p>
+
+<p><img src="/new-kernel-noconfig.png" alt="Kernel Compiled" /></p>
+
+<p>Then the new kernel needs to be copied to our image (I&rsquo;m assuming it&rsquo;s mounted as per the <a href="http://svanellewee.github.io/posts/bootstrap-a-linux/">original post</a>. If this is true you should be able to see the following mapped loop devices:</p>
+
+<pre><code class="language-bash">ls /dev/mapper/
+control loop0p1 loop0p2
+</code></pre>
+
+<p>If you don&rsquo;t see those loop devices, just change to the directory of our <code>virtual-disk.img</code> and re-run:</p>
+
+<pre><code class="language-bash">sudo kpartx -av virtual-disk.img
+</code></pre>
+
+<p>This should make the loop devices appear. Given that my loop devices are called <code>loop0p1</code> and <code>loop0p2</code> and I know the second partition of my file was the root filesystem I&rsquo;m going to mount it as follows:</p>
+
+<pre><code class="language-bash">sudo mount /dev/mapper/loop0p2 /mnt/root_mount/
+sudo mount /dev/mapper/loop0p1 /mnt/boot_mount/
+sudo cp ../outputfile/arch/x86_64/boot/bzImage /mnt/root_mount/kernels/
+</code></pre>
+
+<p>Given that in the first post we already put the Ubuntu kernel and ramdisk we should see the following:</p>
+
+<pre><code class="language-bash">ls /mnt/root_mount/kernels/
+bzImage  initrd.img-4.10.0-27-generic  vmlinuz-4.10.0-27-generic
+</code></pre>
+
+<p>This will &ldquo;boot&rdquo; if you specify the same boot parameters. Just like the <a href="http://svanellewee.github.io/posts/create-a-grub-file/">first grub post</a> we can just make another entry to bottom of the grub file at <code>/mnt/boot_mount/boot/grub/grub.cfg</code></p>
+
+<pre><code>menuentry &quot;Boot up the minimal&quot; {
+   set root=&quot;(hd0,msdos2)&quot;
+   linux /kernels/bzImage root=/dev/sda1
+   initrd /kernels/initrd.img-4.10.0-27-generic
+   boot
+}
+</code></pre>
+
+<p>and then try running it.</p>
+
+<pre><code class="language-bash">qemu-system-x86_64 -drive format=raw,file=virtual-disk.img -m 1G
+</code></pre>
+
+<p>But I suspect because I borrowed the ramdisk the initramdisk from another distro, it is not meant for this kernel you&rsquo;re not going to get past bootup with it unfortunately. That&rsquo;s why we go back to Mitchel&rsquo;s blog to create our own initramfs.</p>
+
+<p>Unlike Mitchel I&rsquo;m not really worried about building busybox from scratch. So I&rsquo;m just going to grab a pre-compiled version:</p>
+
+<pre><code class="language-bash">cd /tmp/
+wget https://busybox.net/downloads/busybox-1.30.0.tar.bz2
+tar -xvf busybox-1.30.0
+cd busybox-1.30.0
+mkdir /tmp/busybox_output
+make O=/tmp/busybox_output defconfig
+make O=/tmp/busybox_output menuconfig  # ensure static binary
+make O=/tmp/busybox_output -j2 &amp;&amp; make O=/tmp/busybox_output install
+</code></pre>
+
+<p>Here&rsquo;s something that differs from the original post. The position of the menuitem to toggle is now:</p>
+
+<pre><code>Settings
+   [*] Build static binary (no shared libs)
+</code></pre>
+
+<pre><code class="language-bash">mkdir -p /tmp/initramfs/x86-busybox
+cd /tmp/initramfs/x86-busybox
+mkdir -pv {bin,sbin,etc,proc,sys,usr/{bin,sbin}}
+cp -av /tmp/busybox_output/_install/* .  # this actually installs busybox
+</code></pre>
+
+<p>The init program he used needs to be places in your busybox root:</p>
+
+<pre><code class="language-bash">cat &lt;&lt;&quot;EOF&quot; &gt; /tmp/initramfs/x86-busybox/init
+#!/bin/sh
+
+mount -t proc none /proc
+mount -t sysfs none /sys
+echo -e &quot;\nBoot took $(cut -d' ' -f1 /proc/uptime) seconds\n&quot;
+
+exec /bin/sh
+EOF
+
+
+# Make executable...
+chmod a+x /tmp/initramfs/x86-busybox/init
+</code></pre>
+
+<p>To build the init ramfs file itself there seems to be a standard way of doing this</p>
+
+<pre><code class="language-bash">cd /tmp/initramfs/x86-busybox/
+find . -print0 | cpio --null --create --verbose --format=newc | gzip --best &gt; /tmp/my-initramfs.cpio.gz
+sudo cp /tmp/my-initramfs.cpio.gz  /mnt/root_mount/kernels/   # Copy the file to our &quot;virtual-disk.img&quot;
+</code></pre>
+
+<p>Now to adjust the grubfile entry to use our new init ramfs</p>
+
+<pre><code>menuentry &quot;Boot up the minimal&quot; {
+   set root=&quot;(hd0,msdos2)&quot;
+   linux /kernels/bzImage root=/dev/sda1
+   initrd /kernels/my-initramfs.cpio.gz
+   boot
+}
+</code></pre>
+
+<p>Remember to call <code>sync</code> after these changes.</p>
+
+<p>Now we should be ready to start our VM again:</p>
+
+<pre><code class="language-bash">qemu-system-x86_64 -drive format=raw,file=virtual-disk.img -m 1G
+</code></pre>
+
+<p><img src="/custom-initramfs.png" alt="Successful init start" /></p>
+
+<h2 id="summary">Summary</h2>
+
+<p>This blog is basically a copy of Mitchel Humphrey&rsquo;s Blog post. I do however put my own take on bootloading (I use grub) and I&rsquo;ve also added some updates to settings that has changed since 2015. If you read this Mr Humphrey, I thank you for your work. It&rsquo;s inspired me to also try write about this topic.</p>
+
+<p>Next I would like to see if we can boot using an EFI system instead of BIOS. Then I would also like to switch root from the init ramfs to the root filesystem on a virtual harddrive!</p>
+
+<h1 id="references">References</h1>
+
+<ul>
+<li><a href="http://mgalgs.github.io/2015/05/16/how-to-build-a-custom-linux-kernel-for-qemu-2015-edition.html">Mitchel Humphreys: How to build a custom kernel for Qemu 2015 Edition</a></li>
+</ul>
+</div>
+
+  <footer class="article-footer">
+    
+    
+    
+    
+    
+    
+  </footer>
+
+</article>
+
+
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "svanellewee" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+
+  <div class="col-md-4">
+    
+<aside class="l-sidebar">
+
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">LATESTS</div>
+    </div>
+    <div class="list-group">
+      
+      <a href="http://svanellewee.github.io/posts/build-a-kernel-from-scratch/" class="list-group-item">Build a Kernel From Scratch</a>
+      
+      <a href="http://svanellewee.github.io/posts/create-a-grub-file/" class="list-group-item">Create a Grub File For Our Toy Linux</a>
+      
+      <a href="http://svanellewee.github.io/posts/bootstrap-a-linux/" class="list-group-item">Creating a minimal environment to bootstrap the Linux Kernel</a>
+      
+    </div>
+  </section>
+
+  
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">CATEGORY</div>
+    </div>
+    <div class="list-group">
+      
+    </div>
+  </section>
+  
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">TAG</div>
+    </div>
+    <div class="list-group">
+      
+    </div>
+  </section>
+  
+
+</aside>
+
+
+  </div>
+</div>
+
+      </div>
+    </main>
+
+    <footer class="l-footer">
+      <div class="container">
+        <p><span class="h-logo">&copy; Peculiar Computing</span></p>
+        <aside>
+          <p>Powered by <a href="https://gohugo.io/">Hugo</a>.</p>
+          <p><a href="https://github.com/dim0627/hugo_theme_beg">Beg</a> designed by <a href="http://yet.unresolved.xyz/">Daisuke Tsuji</a>.</p>
+        </aside>
+      </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

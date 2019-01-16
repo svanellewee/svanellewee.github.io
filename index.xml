@@ -6,10 +6,21 @@
     <description>Recent content on Peculiar Computing</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 16 Jan 2019 20:48:58 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 16 Jan 2019 21:34:16 +0200</lastBuildDate>
     
 	<atom:link href="http://svanellewee.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Build a Kernel From Scratch</title>
+      <link>http://svanellewee.github.io/posts/build-a-kernel-from-scratch/</link>
+      <pubDate>Wed, 16 Jan 2019 21:34:16 +0200</pubDate>
+      
+      <guid>http://svanellewee.github.io/posts/build-a-kernel-from-scratch/</guid>
+      <description>In the previous post I borrowed the kernel files from my current Ubuntu 16.04 distribution. After that I set up a grub menu to speed up testing time.
+Let&amp;rsquo;s grab some kernel sourcecode
+wget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.20.2.tar.xz  The new goal is to compile the smallest most bare bones kernel we can muster. This according to Mitchel Humphrey&amp;rsquo;s excellent 2015 post on this allnoconfig is just the thing we need. I&amp;rsquo;m going to follow his example.</description>
+    </item>
     
     <item>
       <title>Create a Grub File For Our Toy Linux</title>
