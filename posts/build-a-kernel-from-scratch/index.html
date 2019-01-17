@@ -242,8 +242,6 @@ bzImage  initrd.img-4.10.0-27-generic  vmlinuz-4.10.0-27-generic
 
 <p>But I suspect because I borrowed the ramdisk the initramdisk from another distro, it is not meant for this kernel you&rsquo;re not going to get past bootup with it unfortunately. That&rsquo;s why we go back to Mitchel&rsquo;s blog to create our own initramfs.</p>
 
-<p>Unlike Mitchel I&rsquo;m not really worried about building busybox from scratch. So I&rsquo;m just going to grab a pre-compiled version:</p>
-
 <pre><code class="language-bash">cd /tmp/
 wget https://busybox.net/downloads/busybox-1.30.0.tar.bz2
 tar -xvf busybox-1.30.0
