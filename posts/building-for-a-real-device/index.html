@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="pinterest" content="nopin">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.53" />
+
+
+
+<link rel="canonical" href="http://svanellewee.github.io/posts/building-for-a-real-device/">
+
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/solarized_dark.min.css">
+    <title>Building for a Real Device - Peculiar Computing</title>
+    
+<meta name="description" content="So the other day my buddy Shane gifted me an old ASUS transformer (T100TA). Very generious of him! Since it&amp;rsquo;s a windows laptop and I&amp;rsquo;m a masochist, obviously I wanted to install Linux on it. Luckly a lot of the work was done already by this gentleman. Some additional notes was found here After some restling with the debian non-free netinstaller(add link), I managed to get a running 32bit debian installation!">
+
+<meta property="og:title" content="Building for a Real Device - Peculiar Computing">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://svanellewee.github.io/posts/building-for-a-real-device/">
+<meta property="og:image" content="http://svanellewee.github.io/images/default.png">
+<meta property="og:site_name" content="Peculiar Computing">
+<meta property="og:description" content="So the other day my buddy Shane gifted me an old ASUS transformer (T100TA). Very generious of him! Since it&amp;rsquo;s a windows laptop and I&amp;rsquo;m a masochist, obviously I wanted to install Linux on it. Luckly a lot of the work was done already by this gentleman. Some additional notes was found here After some restling with the debian non-free netinstaller(add link), I managed to get a running 32bit debian installation!">
+<meta property="og:locale" content="ja_JP">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="Peculiar Computing">
+<meta name="twitter:url" content="http://svanellewee.github.io/posts/building-for-a-real-device/">
+<meta name="twitter:title" content="Building for a Real Device - Peculiar Computing">
+<meta name="twitter:description" content="So the other day my buddy Shane gifted me an old ASUS transformer (T100TA). Very generious of him! Since it&amp;rsquo;s a windows laptop and I&amp;rsquo;m a masochist, obviously I wanted to install Linux on it. Luckly a lot of the work was done already by this gentleman. Some additional notes was found here After some restling with the debian non-free netinstaller(add link), I managed to get a running 32bit debian installation!">
+<meta name="twitter:image" content="http://svanellewee.github.io/images/default.png">
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id":"http://svanellewee.github.io/"
+    },
+    "headline": "Building for a Real Device - Peculiar Computing",
+    "image": {
+      "@type": "ImageObject",
+      "url": "http://svanellewee.github.io/images/default.png",
+      "height": 800,
+      "width": 800
+    },
+    "datePublished": "2019-01-29T21:52:23JST",
+    "dateModified": "2019-01-29T21:52:23JST",
+    "author": {
+      "@type": "Person",
+      "name": "Peculiar Computing"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Peculiar Computing",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "http://svanellewee.github.io/images/logo.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "description": "So the other day my buddy Shane gifted me an old ASUS transformer (T100TA). Very generious of him! Since it&rsquo;s a windows laptop and I&rsquo;m a masochist, obviously I wanted to install Linux on it. Luckly a lot of the work was done already by this gentleman. Some additional notes was found here After some restling with the debian non-free netinstaller(add link), I managed to get a running 32bit debian installation!"
+  }
+</script>
+
+
+    <link href="http://svanellewee.github.io/css/styles.css" rel="stylesheet">
+    
+
+  </head>
+
+  <body>
+    
+    
+    
+
+    <header class="l-header">
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://svanellewee.github.io/">Peculiar Computing</a>
+          </div>
+
+          
+
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container">
+        
+<div class="row">
+  <div class="col-md-8">
+
+    <nav class="p-crumb">
+      <ol class="breadcrumb">
+        <li><a href="http://svanellewee.github.io/"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+        
+        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="http://svanellewee.github.io/posts/" itemprop="url"><span itemprop="title">posts</span></a></li>
+        
+        <li class="active">Building for a Real Device</li>
+      </ol>
+    </nav>
+
+    <article class="single">
+  <header>
+    <ul class="p-facts">
+      <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2019-01-29T21:52:23JST">Jan 29, 2019</time></li>
+      <li><i class="fa fa-bookmark" aria-hidden="true"></i><a href="http://svanellewee.github.io/posts/">posts</a></li>
+      
+    </ul>
+
+    <h1 class="title">Building for a Real Device</h1>
+  </header>
+
+  
+
+  <div class="article-body">
+
+<p>So the other day my buddy Shane gifted me an old ASUS transformer (T100TA). Very generious of him! Since it&rsquo;s a windows laptop and I&rsquo;m a masochist, obviously I wanted to install Linux on it. Luckly a lot of the work was done already by <a href="http://www.jfwhome.com/2016/01/04/latest-steps-to-install-ubuntu-on-the-asus-t100ta/">this gentleman</a>. Some additional notes was found <a href="https://wiki.debian.org/InstallingDebianOn/Asus/T100TA">here</a> After some restling with the debian non-free netinstaller(add link), I managed to get a running 32bit debian installation!</p>
+
+<p>I got a few very simple apps running.. and <a href="http://quakespasm.sourceforge.net/">Quakespasm</a>. You know, the essentials. But despite the documentation found, I still couldn&rsquo;t make sound work.</p>
+
+<p>After doing some more reading I realised that the device was able to handle 64bit kernels (the boot infrastructure still ran 32bit for some reason) I had hoped that maybe the drivers I was trying was perhaps only available for 64bit, therefor, I attempted to install the 64bit version of the same debian distro.</p>
+
+<p>Failure! Sound still didn&rsquo;t work on the 64bit version. None of the web resources seemed to have had any effective advice for making it work. This set me off on a mission: <em>Build my own kernel, and figure out how to debug hardware on Linux</em>.</p>
+
+<h2 id="step-zero-download-linux-source">Step zero: Download Linux Source</h2>
+
+<p>I decided to get the latest greatest kernel, because why not? (Maybe we&rsquo;ll see why not later..) I was hoping to use the currently installed debian 64bit kernel configuration to base my kernel build on it (copy, paste and adapt.)</p>
+
+<h2 id="step-one-steal-the-laptop-s-current-debian-s-config">Step one: Steal The Laptop&rsquo;s current Debian&rsquo;s Config</h2>
+
+<p>On the ASUS, find the config file in the /boot/ directory. Copy it to the system where you&rsquo;re going to build the kernel.</p>
+
+<pre><code class="language-bash"># On the ASUS debian distro..
+cp /boot/config.? /to/usb/drive
+umount /to/usb/drive
+
+# plug usb into build pc...
+</code></pre>
+
+<p>Let&rsquo;s call my distro &ldquo;morty&rdquo;, because I plan on messing with this poor little thing&rsquo;s brain a bit.</p>
+
+<pre><code class="language-bash"># On the build pc..
+
+mkdir ~/morty
+cp /to/usb/drive/config.? ~/morty   # /to/usb/drive is a placeholder for wherever you mount your usb drive.
+cd linux-source-dir                 # where linux kernel source was extracted too
+make O=~/morty olddefconfig         # Migrate old asus .config to new source config format (adds new config switches)
+</code></pre>
+
+<h2 id="step-two-use-the-config-to-rebuild-the-latest-kernel">Step two: Use the Config to rebuild the latest kernel</h2>
+
+<pre><code class="language-bash">make O=~/morty menuconfig    # Select/Deselect things... more on this later.
+</code></pre>
+
+<p>This was a lot of trial and error. Remember to favour built-in kernel modules <code>&lt;*&gt;</code> rather than loadable <code>&lt;M&gt;</code> because your initial ramfs will be vastly simplified that way.</p>
+
+<h3 id="what-to-enable">What to enable?</h3>
+
+<p>Problems encountered.
+<a href="https://wiki.archlinux.org/index.php/Minimal_initramfs#Keyboard_modules">Solved</a>
+Bake in the requirements..</p>
+
+<h2 id="step-three-make-a-custom-initramfs">Step three: Make a custom initramfs</h2>
+
+<h2 id="step-four-copy-back-to-the-asus">Step four: copy back to the ASUS</h2>
+
+<pre><code class="language-bash"># On the ASUS laptop
+# mount your flashstick (please let me know if you need help here)
+cp /mnt/bzImage /boot/
+cp /mnt/custom-initramfs.cpio.gz /boot/
+</code></pre>
+
+<h2 id="conclusion-did-i-manage-to-fix-my-sound-issues">Conclusion: Did I manage to fix my sound issues?</h2>
+
+<p>Answer: Not yet. Why bother with all this then?&hellip;&hellip;</p>
+
+<h2 id="ways-to-debug">Ways to debug</h2>
+
+<p>grub kernel parameter snippet:&hellip;..loglevel=8 # all the debug (must be &gt; 7)
+USB_TEST/TEST_USB
+Run the VM using qemu.. snippet</p>
+</div>
+
+  <footer class="article-footer">
+    
+    
+    
+    
+    
+    
+  </footer>
+
+</article>
+
+
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "svanellewee" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+
+  <div class="col-md-4">
+    
+<aside class="l-sidebar">
+
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">LATESTS</div>
+    </div>
+    <div class="list-group">
+      
+      <a href="http://svanellewee.github.io/posts/building-for-a-real-device/" class="list-group-item">Building for a Real Device</a>
+      
+      <a href="http://svanellewee.github.io/posts/build-a-kernel-from-scratch/" class="list-group-item">Build a Kernel From Scratch</a>
+      
+      <a href="http://svanellewee.github.io/posts/create-a-grub-file/" class="list-group-item">Create a Grub File For Our Toy Linux</a>
+      
+      <a href="http://svanellewee.github.io/posts/bootstrap-a-linux/" class="list-group-item">Creating a minimal environment to bootstrap the Linux Kernel</a>
+      
+    </div>
+  </section>
+
+  
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">CATEGORY</div>
+    </div>
+    <div class="list-group">
+      
+    </div>
+  </section>
+  
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">TAG</div>
+    </div>
+    <div class="list-group">
+      
+    </div>
+  </section>
+  
+
+</aside>
+
+
+  </div>
+</div>
+
+      </div>
+    </main>
+
+    <footer class="l-footer">
+      <div class="container">
+        <p><span class="h-logo">&copy; Peculiar Computing</span></p>
+        <aside>
+          <p>Powered by <a href="https://gohugo.io/">Hugo</a>.</p>
+          <p><a href="https://github.com/dim0627/hugo_theme_beg">Beg</a> designed by <a href="http://yet.unresolved.xyz/">Daisuke Tsuji</a>.</p>
+        </aside>
+      </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+
