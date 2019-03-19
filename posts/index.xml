@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Peculiar Computing</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 29 Jan 2019 21:52:23 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 19 Mar 2019 11:22:25 +0200</lastBuildDate>
     
 	<atom:link href="http://svanellewee.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>User Mode Linux</title>
+      <link>http://svanellewee.github.io/posts/user-mode-linux/</link>
+      <pubDate>Tue, 19 Mar 2019 11:22:25 +0200</pubDate>
+      
+      <guid>http://svanellewee.github.io/posts/user-mode-linux/</guid>
+      <description>Intro In my study of the linux kernel I recently learned about the concept of &amp;ldquo;User-mode Linux&amp;rdquo;. This allows you to run a linux kernel as an executable. (In other words, Linux running on Linux.)
+Why run Linux inside of Linux ? There are various reasons. You can run gdb to validate the latest kernel code changes, conveniently from within your current system and using your old kernel. You can setup your own virtualization, even create a network of these linux executables.</description>
+    </item>
     
     <item>
       <title>Building for a Real Device</title>

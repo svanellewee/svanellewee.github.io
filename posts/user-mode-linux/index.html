@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="pinterest" content="nopin">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.53" />
+
+
+
+<link rel="canonical" href="http://svanellewee.github.io/posts/user-mode-linux/">
+
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/solarized_dark.min.css">
+    <title>User Mode Linux - Peculiar Computing</title>
+    
+<meta name="description" content="Intro In my study of the linux kernel I recently learned about the concept of &amp;ldquo;User-mode Linux&amp;rdquo;. This allows you to run a linux kernel as an executable. (In other words, Linux running on Linux.)Why run Linux inside of Linux ? There are various reasons. You can run gdb to validate the latest kernel code changes, conveniently from within your current system and using your old kernel. You can setup your own virtualization, even create a network of these linux executables.">
+
+<meta property="og:title" content="User Mode Linux - Peculiar Computing">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://svanellewee.github.io/posts/user-mode-linux/">
+<meta property="og:image" content="http://svanellewee.github.io/images/default.png">
+<meta property="og:site_name" content="Peculiar Computing">
+<meta property="og:description" content="Intro In my study of the linux kernel I recently learned about the concept of &amp;ldquo;User-mode Linux&amp;rdquo;. This allows you to run a linux kernel as an executable. (In other words, Linux running on Linux.)Why run Linux inside of Linux ? There are various reasons. You can run gdb to validate the latest kernel code changes, conveniently from within your current system and using your old kernel. You can setup your own virtualization, even create a network of these linux executables.">
+<meta property="og:locale" content="ja_JP">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="Peculiar Computing">
+<meta name="twitter:url" content="http://svanellewee.github.io/posts/user-mode-linux/">
+<meta name="twitter:title" content="User Mode Linux - Peculiar Computing">
+<meta name="twitter:description" content="Intro In my study of the linux kernel I recently learned about the concept of &amp;ldquo;User-mode Linux&amp;rdquo;. This allows you to run a linux kernel as an executable. (In other words, Linux running on Linux.)Why run Linux inside of Linux ? There are various reasons. You can run gdb to validate the latest kernel code changes, conveniently from within your current system and using your old kernel. You can setup your own virtualization, even create a network of these linux executables.">
+<meta name="twitter:image" content="http://svanellewee.github.io/images/default.png">
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id":"http://svanellewee.github.io/"
+    },
+    "headline": "User Mode Linux - Peculiar Computing",
+    "image": {
+      "@type": "ImageObject",
+      "url": "http://svanellewee.github.io/images/default.png",
+      "height": 800,
+      "width": 800
+    },
+    "datePublished": "2019-03-19T11:22:25JST",
+    "dateModified": "2019-03-19T11:22:25JST",
+    "author": {
+      "@type": "Person",
+      "name": "Peculiar Computing"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Peculiar Computing",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "http://svanellewee.github.io/images/logo.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "description": "Intro In my study of the linux kernel I recently learned about the concept of &ldquo;User-mode Linux&rdquo;. This allows you to run a linux kernel as an executable. (In other words, Linux running on Linux.)
+Why run Linux inside of Linux ? There are various reasons. You can run gdb to validate the latest kernel code changes, conveniently from within your current system and using your old kernel. You can setup your own virtualization, even create a network of these linux executables."
+  }
+</script>
+
+
+    <link href="http://svanellewee.github.io/css/styles.css" rel="stylesheet">
+    
+
+  </head>
+
+  <body>
+    
+    
+    
+
+    <header class="l-header">
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://svanellewee.github.io/">Peculiar Computing</a>
+          </div>
+
+          
+
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container">
+        
+<div class="row">
+  <div class="col-md-8">
+
+    <nav class="p-crumb">
+      <ol class="breadcrumb">
+        <li><a href="http://svanellewee.github.io/"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+        
+        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="http://svanellewee.github.io/posts/" itemprop="url"><span itemprop="title">posts</span></a></li>
+        
+        <li class="active">User Mode Linux</li>
+      </ol>
+    </nav>
+
+    <article class="single">
+  <header>
+    <ul class="p-facts">
+      <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2019-03-19T11:22:25JST">Mar 19, 2019</time></li>
+      <li><i class="fa fa-bookmark" aria-hidden="true"></i><a href="http://svanellewee.github.io/posts/">posts</a></li>
+      
+    </ul>
+
+    <h1 class="title">User Mode Linux</h1>
+  </header>
+
+  
+
+  <div class="article-body">
+
+<h2 id="intro">Intro</h2>
+
+<p>In my study of the linux kernel I recently learned about the concept of &ldquo;User-mode Linux&rdquo;. This allows you to run a linux kernel as an executable. (In other words, Linux running on Linux.)</p>
+
+<h3 id="why-run-linux-inside-of-linux">Why run Linux inside of Linux ?</h3>
+
+<p>There are various reasons. You can run <code>gdb</code> to validate the latest kernel code changes, conveniently from within your current system and using your old kernel. You can setup your own virtualization, even create a network of these linux executables. You can even create <a href="http://user-mode-linux.sourceforge.net/old/honeypots.html">honeypots</a></p>
+
+<p>The documentation on this seems not to follow the current state of things so much. (The <a href="http://user-mode-linux.sourceforge.net/">official site</a> doesn&rsquo;t even reflect that this feature has been merged into the main Linux kernel source tree since version 2.6.0! (<em>At the time I&rsquo;m writing this the kernel has just reached version 5 now!</em>)</p>
+
+<p>Clearly there is a  <em>lot</em> of web posts covering this and I know I&rsquo;m probably adding to the noise, but for me this post is to document my method of getting a user mode linux (aka UML) working, based on various sources (Which I will list in the references below.)</p>
+
+<p>In order to build a user mode kernel I learnt about yet another way to set the configuration of the Linux build system.</p>
+
+<h3 id="environment-variables-arch-um-and-kconfig-allconfig">Environment variables <code>ARCH=um</code> and <code>KCONFIG_ALLCONFIG</code></h3>
+
+<p>The linux build system allows you to overlay a small subset of options over another standard config. For example:</p>
+
+<pre><code class="language-bash">make  ARCH=um  KCONFIG_ALLCONFIG=./mini.config allnoconfig
+</code></pre>
+
+<p>Here, the file <code>mini.config</code> sets some kernel build options, while <code>allnoconfig</code> unsets all the other options. It&rsquo;s similar to applying a bitmask operation on the options.</p>
+
+<p>A post from 2013 specified the most helpful get started I could find. <a href="https://techoverflow.net/2013/07/09/user-mode-linux-for-beginners-setup-and-first-vm/">Techoverflow.net</a> specified a nice succinct list of config options to get you going. Unfortunately something must have changed in the Linux kernel build system since it was written, because as-is, it doesn&rsquo;t work on kernel 4.20.2.</p>
+
+<p><em>Tip</em>: When setting a <code>mini.config</code> option remember to also add the option it&rsquo;s dependant on. The build system doesn&rsquo;t seem to do that for you. In the above posts&rsquo; case, adding <code>CONFIG_BLOCK=y</code> seemed to allow the EXT2,3,4 options to work. <strong>Options seems to be structured in a dependency tree</strong>. After adding this <code>CONFIG_BLOCK</code> setting to the Techoverflow example and deciding I wanted to build all the settings into the kernel (rather than separate modules) I ended up with a <code>mini.config</code> as follows:</p>
+
+<pre><code class="language-bash">cat &lt;&lt;EOF &gt; mini.config
+CONFIG_64BIT=y
+CONFIG_X86_64=y
+CONFIG_BINFMT_ELF=y
+CONFIG_HOSTFS=y
+CONFIG_BLOCK=y
+CONFIG_LBD=y
+CONFIG_BLK_DEV=y
+CONFIG_BLK_DEV_LOOP=y
+CONFIG_STDERR_CONSOLE=y
+CONFIG_UNIX98_PTYS=y
+CONFIG_EXT2_FS=y
+CONFIG_MODULES=y
+CONFIG_INOTIFY_USER=y
+CONFIG_NET=y
+CONFIG_UNIX=y
+CONFIG_EXT3_FS=y
+CONFIG_EXT4_FS=y
+EOF
+</code></pre>
+
+<p>Finally when your new <code>mini.config</code> is done then let the build system know by assigning the filename to the special <code>KCONFIG_ALLCONFIG</code> environment variable. Ie:</p>
+
+<pre><code class="language-bash">KCONFIG_ALLCONFIG=./mini.config
+</code></pre>
+
+<p>Finally, the <code>ARCH=um</code> setting tells the build system to build a &ldquo;user mode&rdquo; kernel that can run as an executable (read &ldquo;guest&rdquo;) on a host Linux system.</p>
+
+<h3 id="the-whole-process-from-start-to-finish">The whole process from start to finish</h3>
+
+<h4 id="make-a-directory-i-ll-choose-uml-as-mine">Make a directory (I&rsquo;ll choose <code>~/uml</code> as mine)</h4>
+
+<pre><code class="language-bash">mkdir ~/uml
+</code></pre>
+
+<h4 id="download-and-extract-linux-source-somewhere">Download and extract linux source somewhere</h4>
+
+<pre><code class="language-bash">curl https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.0.3.tar.xz -o ~/Downloads/linux-5.0.3.tar.xz
+tar -xvf ~/Downloads/linux-5.0.3.tar.xz -C ~/
+cd ~/linux-5.0.3
+</code></pre>
+
+<h4 id="make-your-mini-config">Make your <code>mini.config</code></h4>
+
+<pre><code class="language-bash">cat &lt;&lt;EOF &gt; ~/linux-5.0.3/mini.config
+CONFIG_64BIT=y
+CONFIG_X86_64=y
+CONFIG_BINFMT_ELF=y
+CONFIG_HOSTFS=y
+CONFIG_BLOCK=y
+CONFIG_LBD=y
+CONFIG_BLK_DEV=y
+CONFIG_BLK_DEV_LOOP=y
+CONFIG_STDERR_CONSOLE=y
+CONFIG_UNIX98_PTYS=y
+CONFIG_EXT2_FS=y
+CONFIG_MODULES=y
+CONFIG_INOTIFY_USER=y
+CONFIG_NET=y
+CONFIG_UNIX=y
+CONFIG_EXT3_FS=y
+CONFIG_EXT4_FS=y
+EOF
+</code></pre>
+
+<h4 id="setup-the-build-system-with-the-new-config-the-following-sets-nothing-but-what-s-provided-in-the-mini-config">Setup the build system with the new config. (The following sets nothing but what&rsquo;s provided in the <code>mini.config</code>)</h4>
+
+<pre><code class="language-bash">make O=~/uml ARCH=um allnoconfig KCONFIG_ALLCONFIG=~/linux-5.0.3/mini.config
+</code></pre>
+
+<p>You can use <code>grep</code> to confirm that the EXT3, EXT4 settings have been applied successfully, for example:</p>
+
+<pre><code class="language-bash">stephan:~/linux-5.0.3 $ grep EXT ~/uml/.config
+# CONFIG_EXTCON is not set
+CONFIG_EXT2_FS=y
+# CONFIG_EXT2_FS_XATTR is not set
+CONFIG_EXT3_FS=y
+# CONFIG_EXT3_FS_POSIX_ACL is not set
+# CONFIG_EXT3_FS_SECURITY is not set
+CONFIG_EXT4_FS=y
+# CONFIG_EXT4_FS_POSIX_ACL is not set
+# CONFIG_EXT4_FS_SECURITY is not set
+# CONFIG_EXT4_ENCRYPTION is not set
+# CONFIG_EXT4_DEBUG is not set
+# CONFIG_PAGE_EXTENSION is not set
+# CONFIG_DEBUG_BLOCK_EXT_DEVT is not set
+</code></pre>
+
+<h4 id="build">Build!</h4>
+
+<pre><code class="language-bash">make O=~/uml ARCH=um -j$(nproc)   # nproc gives the number of cpu's we can work with
+</code></pre>
+
+<p>The build step shouldn&rsquo;t take too long(approximately 3 mins on an oldish laptop), since most build options have been disabled.</p>
+
+<h4 id="run">Run!</h4>
+
+<p>You can build your own filesystem apparently (though I&rsquo;m still unsure how) but for now the simplest would just be to use the host filesystem and host&rsquo;s <code>bash</code> as the init process.</p>
+
+<pre><code class="language-bash">cd ~/uml
+./linux rootfstype=hostfs rw init=/bin/bash
+</code></pre>
+
+<p>You should then be able to navigate using the new kernel. To validate that you&rsquo;re <em>not</em> using the host kernel you can issue a <code>uname -sr</code>.</p>
+
+<p><img src="/uml-works.png" alt="Successful UML Run" /></p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>I look forward to playing with more user mode linux kernels! I am amazed at the wonderful features the Linux kernel and it&rsquo;s build system allows one to do. Given how fast things move I have no doubt this post will be date soon (as most UML tutorials seem to end up being). Perhaps this can act as a way-marker for those who&rsquo;s trying to make sense of this great (but strangely unknown) feature of the Linux kernel.</p>
+</div>
+
+  <footer class="article-footer">
+    
+    
+    
+    
+    
+    
+  </footer>
+
+</article>
+
+
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "svanellewee" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+
+  <div class="col-md-4">
+    
+<aside class="l-sidebar">
+
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">LATESTS</div>
+    </div>
+    <div class="list-group">
+      
+      <a href="http://svanellewee.github.io/posts/user-mode-linux/" class="list-group-item">User Mode Linux</a>
+      
+      <a href="http://svanellewee.github.io/posts/building-for-a-real-device/" class="list-group-item">Building for a Real Device</a>
+      
+      <a href="http://svanellewee.github.io/posts/build-a-kernel-from-scratch/" class="list-group-item">Build a Kernel From Scratch</a>
+      
+      <a href="http://svanellewee.github.io/posts/create-a-grub-file/" class="list-group-item">Create a Grub File For Our Toy Linux</a>
+      
+      <a href="http://svanellewee.github.io/posts/bootstrap-a-linux/" class="list-group-item">Creating a minimal environment to bootstrap the Linux Kernel</a>
+      
+    </div>
+  </section>
+
+  
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">CATEGORY</div>
+    </div>
+    <div class="list-group">
+      
+    </div>
+  </section>
+  
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">TAG</div>
+    </div>
+    <div class="list-group">
+      
+    </div>
+  </section>
+  
+
+</aside>
+
+
+  </div>
+</div>
+
+      </div>
+    </main>
+
+    <footer class="l-footer">
+      <div class="container">
+        <p><span class="h-logo">&copy; Peculiar Computing</span></p>
+        <aside>
+          <p>Powered by <a href="https://gohugo.io/">Hugo</a>.</p>
+          <p><a href="https://github.com/dim0627/hugo_theme_beg">Beg</a> designed by <a href="http://yet.unresolved.xyz/">Daisuke Tsuji</a>.</p>
+        </aside>
+      </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

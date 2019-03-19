@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://svanellewee.github.io/posts/user-mode-linux/</loc>
+    <lastmod>2019-03-19T11:22:25+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://svanellewee.github.io/posts/building-for-a-real-device/</loc>
     <lastmod>2019-01-29T21:52:23+02:00</lastmod>
   </url>
@@ -29,13 +34,13 @@
   
   <url>
     <loc>http://svanellewee.github.io/</loc>
-    <lastmod>2019-01-29T21:52:23+02:00</lastmod>
+    <lastmod>2019-03-19T11:22:25+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://svanellewee.github.io/posts/</loc>
-    <lastmod>2019-01-29T21:52:23+02:00</lastmod>
+    <lastmod>2019-03-19T11:22:25+02:00</lastmod>
     <priority>0</priority>
   </url>
   
