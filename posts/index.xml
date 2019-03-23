@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Peculiar Computing</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 19 Mar 2019 11:22:25 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 20 Mar 2019 06:00:19 +0200</lastBuildDate>
     
 	<atom:link href="http://svanellewee.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Virtualbox Efi Linux</title>
+      <link>http://svanellewee.github.io/posts/virtualbox-efi-linux/</link>
+      <pubDate>Wed, 20 Mar 2019 06:00:19 +0200</pubDate>
+      
+      <guid>http://svanellewee.github.io/posts/virtualbox-efi-linux/</guid>
+      <description>I&amp;rsquo;ve been using QEMU for my previous posts, but since I&amp;rsquo;d like to experiment with EFI a bit more, I&amp;rsquo;ve decided to move my efforts to a VirtualBox, since it seems to have EFI support baked in.
+In order to make this post a little less of a repeat of the previous posts, I&amp;rsquo;ve attempted to write more of the post, in code and just explain how each snippet works and can be used.</description>
+    </item>
     
     <item>
       <title>User Mode Linux</title>

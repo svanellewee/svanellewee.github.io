@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="pinterest" content="nopin">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.53" />
+
+
+
+<link rel="canonical" href="http://svanellewee.github.io/posts/virtualbox-efi-linux/">
+
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/solarized_dark.min.css">
+    <title>Virtualbox Efi Linux - Peculiar Computing</title>
+    
+<meta name="description" content="I&amp;rsquo;ve been using QEMU for my previous posts, but since I&amp;rsquo;d like to experiment with EFI a bit more, I&amp;rsquo;ve decided to move my efforts to a VirtualBox, since it seems to have EFI support baked in.In order to make this post a little less of a repeat of the previous posts, I&amp;rsquo;ve attempted to write more of the post, in code and just explain how each snippet works and can be used.">
+
+<meta property="og:title" content="Virtualbox Efi Linux - Peculiar Computing">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://svanellewee.github.io/posts/virtualbox-efi-linux/">
+<meta property="og:image" content="http://svanellewee.github.io/images/default.png">
+<meta property="og:site_name" content="Peculiar Computing">
+<meta property="og:description" content="I&amp;rsquo;ve been using QEMU for my previous posts, but since I&amp;rsquo;d like to experiment with EFI a bit more, I&amp;rsquo;ve decided to move my efforts to a VirtualBox, since it seems to have EFI support baked in.In order to make this post a little less of a repeat of the previous posts, I&amp;rsquo;ve attempted to write more of the post, in code and just explain how each snippet works and can be used.">
+<meta property="og:locale" content="ja_JP">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="Peculiar Computing">
+<meta name="twitter:url" content="http://svanellewee.github.io/posts/virtualbox-efi-linux/">
+<meta name="twitter:title" content="Virtualbox Efi Linux - Peculiar Computing">
+<meta name="twitter:description" content="I&amp;rsquo;ve been using QEMU for my previous posts, but since I&amp;rsquo;d like to experiment with EFI a bit more, I&amp;rsquo;ve decided to move my efforts to a VirtualBox, since it seems to have EFI support baked in.In order to make this post a little less of a repeat of the previous posts, I&amp;rsquo;ve attempted to write more of the post, in code and just explain how each snippet works and can be used.">
+<meta name="twitter:image" content="http://svanellewee.github.io/images/default.png">
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id":"http://svanellewee.github.io/"
+    },
+    "headline": "Virtualbox Efi Linux - Peculiar Computing",
+    "image": {
+      "@type": "ImageObject",
+      "url": "http://svanellewee.github.io/images/default.png",
+      "height": 800,
+      "width": 800
+    },
+    "datePublished": "2019-03-20T06:00:19JST",
+    "dateModified": "2019-03-20T06:00:19JST",
+    "author": {
+      "@type": "Person",
+      "name": "Peculiar Computing"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Peculiar Computing",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "http://svanellewee.github.io/images/logo.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "description": "I&rsquo;ve been using QEMU for my previous posts, but since I&rsquo;d like to experiment with EFI a bit more, I&rsquo;ve decided to move my efforts to a VirtualBox, since it seems to have EFI support baked in.
+In order to make this post a little less of a repeat of the previous posts, I&rsquo;ve attempted to write more of the post, in code and just explain how each snippet works and can be used."
+  }
+</script>
+
+
+    <link href="http://svanellewee.github.io/css/styles.css" rel="stylesheet">
+    
+
+  </head>
+
+  <body>
+    
+    
+    
+
+    <header class="l-header">
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://svanellewee.github.io/">Peculiar Computing</a>
+          </div>
+
+          
+
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container">
+        
+<div class="row">
+  <div class="col-md-8">
+
+    <nav class="p-crumb">
+      <ol class="breadcrumb">
+        <li><a href="http://svanellewee.github.io/"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+        
+        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="http://svanellewee.github.io/posts/" itemprop="url"><span itemprop="title">posts</span></a></li>
+        
+        <li class="active">Virtualbox Efi Linux</li>
+      </ol>
+    </nav>
+
+    <article class="single">
+  <header>
+    <ul class="p-facts">
+      <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2019-03-20T06:00:19JST">Mar 20, 2019</time></li>
+      <li><i class="fa fa-bookmark" aria-hidden="true"></i><a href="http://svanellewee.github.io/posts/">posts</a></li>
+      
+    </ul>
+
+    <h1 class="title">Virtualbox Efi Linux</h1>
+  </header>
+
+  
+
+  <div class="article-body">
+
+<p>I&rsquo;ve been using <a href="https://www.qemu.org/">QEMU</a> for my previous posts, but since I&rsquo;d like to experiment with EFI a bit more, I&rsquo;ve decided to move my efforts to a <a href="https://www.virtualbox.org/">VirtualBox</a>, since it seems to have EFI support baked in.</p>
+
+<p>In order to make this post a little less of a repeat of the previous posts, I&rsquo;ve attempted to write more of the post, <em>in code</em> and just explain how each snippet works and can be used.</p>
+
+<h2 id="making-the-blank-image-file">Making the blank image file</h2>
+
+<p>I try to write all my bash code as a library for later reuse. That way I have more primitives to work with when I want to retry certain parts of the process again. The following snippet creates an <code>INFO</code> function that writes to <code>stderr</code> so that the <code>stdout</code> stuff can be piped without adding human level logging into the mix.</p>
+
+<pre><code class="language-bash">#!/usr/bin/env bash
+
+function info() {
+	local GREEN=&quot;\e[32m&quot;
+	echo -e &quot;\e[32m[INFO]\e[0m $*&quot; &gt;&amp;2
+}
+</code></pre>
+
+<p>Next I create a function that will create the blank image given the required filename and size in Megs:</p>
+
+<pre><code class="language-bash">function make-blank-image() {
+	local OUTPUT_FILE=&quot;${1}&quot;
+	local SIZE=&quot;${2}&quot;
+	info &quot;making a image file &quot;${OUTPUT_FILE}&quot; of ${SIZE}Mbytes&quot;
+	dd if=/dev/zero \
+		of=&quot;${OUTPUT_FILE}&quot; \
+		bs=1M count=&quot;${SIZE}&quot;
+}
+</code></pre>
+
+<p>Using <code>parted</code> I then create a function that can partition the file into the
+- EFI,
+- Swap and
+- Main partitions</p>
+
+<pre><code class="language-bash">
+function make-paritions() {
+	local INPUT_FILE=&quot;${1}&quot;
+	local SWAP_SIZE=512
+	local GPT_START=&quot;0%&quot;
+	local GPT_END=257
+	local SWAP_START=$((${GPT_END} + 1))
+	local SWAP_END=$((${SWAP_START} + ${SWAP_SIZE}))
+	local MAIN_START=$((${SWAP_END} + 1))
+	local MAIN_END_KBYTES=$(du ${INTPUT_FILE} | awk '{ print $1 }') 
+	local MAIN_END=$(bc &lt;&lt;&lt;&quot;${MAIN_END_KBYTES} / 1024&quot;)
+	info &quot;Making GPT from ${GPT_START} ${GPT_END}&quot;
+	parted --script &quot;${INPUT_FILE}&quot; mklabel gpt mkpart p fat32 ${GPT_START} ${GPT_END} set 1 boot on
+	info &quot;Making swap from ${SWAP_START} ${SWAP_END}&quot;
+	parted --script &quot;${INPUT_FILE}&quot; mkpart p linux-swap ${SWAP_START} ${SWAP_END}
+	info &quot;Making main partition from ${MAIN_START} ${MAIN_END}&quot;
+	parted --script &quot;${INPUT_FILE}&quot; mkpart p ext4 ${MAIN_START} ${MAIN_END}
+}
+</code></pre>
+
+<p>Now here it gets a little ugly. Once the image file has been partitioned we have to map the image is seperate loopback devices so that they can be formatted. For instance, since the <code>EFI</code> partition needs to be <code>FAT</code> filesystem and I&rsquo;ve chosen to format the <code>main</code> partition as <code>EXT4</code> filesystem, they have to be applied separately to each partition.</p>
+
+<pre><code class="language-bash">function format-partitions() {
+	local INPUT_FILE=&quot;${1}&quot;
+	sudo kpartx -av &quot;${INPUT_FILE}&quot;
+	sleep 1
+	sudo mkfs.vfat /dev/mapper/loop0p1
+	sleep 1
+	sudo mkfs.ext4 /dev/mapper/loop0p3
+	sleep 1
+	sudo kpartx -d &quot;${INPUT_FILE}&quot;
+}
+</code></pre>
+
+<p>Note, I&rsquo;ve added sleep, since it seems that formatting has some sort of asynchronous aspect to it. I&rsquo;m open to suggestions on why this is and how to improve this. The <em>really</em> ugly part is that I still need to apply sudo to access a file that merely lives in my own home directory. Sure, the /dev/ directory is restricted, but I would have liked to be able to perform operations on my own files without sudo access as a requirement. Perhaps projects such as <a href="http://libguestfs.org/">libguestfs</a> could help, but I&rsquo;m not quite sure.</p>
+
+<p>Next I wrote a function that will install files to the root partition of my image.</p>
+
+<pre><code class="language-bash">function install-to-root() {
+	local INPUT_FILE=&quot;${1}&quot;
+	local KERNEL_IMAGE_LOCATION=&quot;${2}&quot;
+	mkdir -p /tmp/root
+	sudo kpartx -av &quot;${INPUT_FILE}&quot;
+	sleep 1
+	sudo mount /dev/mapper/loop0p3 /tmp/root
+	sudo mkdir /tmp/root/boot
+	sudo cp ${KERNEL_IMAGE_LOCATION} /tmp/root/boot
+	sudo umount /tmp/root
+	sudo kpartx -d &quot;${INPUT_FILE}&quot;
+}
+</code></pre>
+
+<pre><code class="language-bash">function install-to-boot() {
+	set -x
+	local INPUT_FILE=&quot;${1}&quot;
+	local BOOT_IMAGE_LOCATION=&quot;${2}&quot;
+	mkdir -p /tmp/boot
+	sudo kpartx -av &quot;${INPUT_FILE}&quot;
+	sleep 1
+	sudo mount /dev/mapper/loop0p1 /tmp/boot
+	sudo mkdir -p /tmp/boot/EFI/boot/
+	sudo cp ${BOOT_IMAGE_LOCATION} /tmp/boot/EFI/boot/
+	if [[ ! -f /tmp/boot/EFI/boot/startup.nsh ]]
+	then
+		cat &lt;&lt;- &quot;EOF&quot; &gt; /tmp/boot/EFI/boot/startup.nsh
+		\EFI\BOOT\BOOTX64.EFI
+		EOF
+	fi
+	sudo umount /tmp/boot
+	sudo kpartx -d &quot;${INPUT_FILE}&quot;
+	set +x
+}
+</code></pre>
+
+<pre><code class="language-bash">function setup-grub(){
+	local KERNEL_PATH=&quot;${1}&quot;
+	local INITRAMFS_PATH=&quot;${2}&quot;
+	cat &lt;&lt;- EOF &gt; /tmp/grub.cfg
+	insmod part_gpt
+	insmod part_msdos
+	insmod fat
+	insmod efi_gop
+	insmod efi_uga
+	insmod video_bochs
+	insmod video_cirrus
+
+	menuentry &quot;Start The Magic..&quot; {
+	  set root=(hd1,gpt3)
+	  linux ${KERNEL_PATH} loglevel=8 acpi=off
+	  initrd ${INITRAMFS_PATH}
+	}
+	EOF
+	grub-mkstandalone -d /usr/lib/grub/x86_64-efi \
+		-O x86_64-efi \
+		--modules=&quot;part_gpt part_msdos&quot; \
+		--fonts=&quot;unicode&quot; \
+		-o &quot;./bootx64.efi&quot; &quot;boot/grub/grub.cfg=/tmp/grub.cfg&quot; -v
+}
+</code></pre>
+
+<pre><code class="language-bash">function build-initramfs() {
+	local BUSYBOX_DIR=${1}
+	if [[ -d /tmp/busybox ]]
+	then
+		rm -fr /tmp/busybox
+	fi
+	cp -ar &quot;${BUSYBOX_DIR}&quot;/_install /tmp/busybox
+	cat &lt;&lt;- &quot;EOF&quot; &gt; /tmp/busybox/init
+	#!/bin/busybox sh
+	mount -t proc none /proc
+	mount -t sysfs none /sys
+	echo &quot;Starting kernel $(uname -r)&quot;
+	exec /bin/sh
+	EOF
+	local KERNEL_DIR=&quot;${2}&quot;
+	(
+	cat &lt;&lt;- EOF
+	# A simple initramfs
+	dir /dev 0755 0 0
+	nod /dev/console 0600 0 0 c 5 1
+	nod /dev/tty0 0600 0 0 c 4 0
+	dir /sys 0755 0 0
+	dir /proc 0755 0 0
+	dir /root 0700 0 0
+	dir /sbin 0755 0 0
+	dir /bin 0755 0 0
+	file /bin/busybox /tmp/busybox/bin/busybox 755 0 0
+	EOF
+
+	for i in $(find /tmp/busybox/sbin/ -type l )
+	do 
+		cur_link=&quot;${i##/tmp/busybox/sbin/}&quot;
+		echo &quot;slink /sbin/${cur_link} /bin/busybox 777 0 0&quot;
+	done
+	for i in $(find /tmp/busybox/bin/* -type l )
+	do
+		cur_link=&quot;${i##/tmp/busybox/bin/}&quot;
+		echo &quot;slink /bin/${cur_link} /bin/busybox 777 0 0&quot;
+	done
+	echo &quot;file /init /tmp/busybox/init 755 0 0&quot;
+	) &gt; /tmp/initramfs-list
+	${KERNEL_DIR}/usr/gen_init_cpio /tmp/initramfs-list &gt; custom-initramfs.cpio.gz
+}
+</code></pre>
+
+<pre><code class="language-bash">function convert-raw-to-vdi() {
+    local INPUT_FILE=&quot;${1}&quot;
+    VBoxManage convertdd ${INPUT_FILE}.img ${INPUT_FILE}.vdi --format VDI
+}
+</code></pre>
+</div>
+
+  <footer class="article-footer">
+    
+    
+    
+    
+    
+    
+  </footer>
+
+</article>
+
+
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "svanellewee" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+
+  <div class="col-md-4">
+    
+<aside class="l-sidebar">
+
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">LATESTS</div>
+    </div>
+    <div class="list-group">
+      
+      <a href="http://svanellewee.github.io/posts/virtualbox-efi-linux/" class="list-group-item">Virtualbox Efi Linux</a>
+      
+      <a href="http://svanellewee.github.io/posts/user-mode-linux/" class="list-group-item">User Mode Linux</a>
+      
+      <a href="http://svanellewee.github.io/posts/building-for-a-real-device/" class="list-group-item">Building for a Real Device</a>
+      
+      <a href="http://svanellewee.github.io/posts/build-a-kernel-from-scratch/" class="list-group-item">Build a Kernel From Scratch</a>
+      
+      <a href="http://svanellewee.github.io/posts/create-a-grub-file/" class="list-group-item">Create a Grub File For Our Toy Linux</a>
+      
+      <a href="http://svanellewee.github.io/posts/bootstrap-a-linux/" class="list-group-item">Creating a minimal environment to bootstrap the Linux Kernel</a>
+      
+    </div>
+  </section>
+
+  
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">CATEGORY</div>
+    </div>
+    <div class="list-group">
+      
+    </div>
+  </section>
+  
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">TAG</div>
+    </div>
+    <div class="list-group">
+      
+    </div>
+  </section>
+  
+
+</aside>
+
+
+  </div>
+</div>
+
+      </div>
+    </main>
+
+    <footer class="l-footer">
+      <div class="container">
+        <p><span class="h-logo">&copy; Peculiar Computing</span></p>
+        <aside>
+          <p>Powered by <a href="https://gohugo.io/">Hugo</a>.</p>
+          <p><a href="https://github.com/dim0627/hugo_theme_beg">Beg</a> designed by <a href="http://yet.unresolved.xyz/">Daisuke Tsuji</a>.</p>
+        </aside>
+      </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+
