@@ -241,7 +241,7 @@ sysfs /sys sysfs defaults 0 0
 EOF
 </code></pre>
 
-<p>The reason we want <code>sysfs</code> to be available is so that we can automate the device creation using <code>mdev</code>. There is a manual script in the <code>bootfloppy</code> example but I&rsquo;d like to see how hard <code>mdev</code> would be given that it&rsquo;s built into <code>busybox</code>.</p>
+<p>The reason we want <code>sysfs</code> to be available is so that we can automate the device creation using <code>mdev</code>. There is a manual script in the <code>bootfloppy</code> example but I&rsquo;d like to see how hard <code>mdev</code> would be given that it&rsquo;s built into <code>busybox</code>. I followed the example <a href="https://git.busybox.net/busybox/plain/docs/mdev.txt">here</a>.</p>
 
 <p><em>Note</em> there&rsquo;s a note on using he command <code>echo /sbin/mdev &gt; /proc/sys/kernel/hotplug</code> to allow hotplugging of devices. So far I&rsquo;ve not been able to make the <code>hotplug</code> file appear on /proc/sys. I&rsquo;ll keep trying though.</p>
 
