@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="pinterest" content="nopin">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.53" />
+
+
+
+<link rel="canonical" href="http://svanellewee.github.io/posts/uml-continued/">
+
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/solarized_dark.min.css">
+    <title>Uml Continued - Peculiar Computing</title>
+    
+<meta name="description" content="Previously I managed to build UML (User-mode Linux) but using the host filesystem as it&amp;rsquo;s filesystem. I wanted to go a step further and replace that as well.Here goes. So far the best example of how to do this lives in the busybox repositories&amp;rsquo; own git repo, in the Examples Directory I deviated from it however, since some aspects doesn&amp;rsquo;t seem required anymore (such as the uClibc compilation step)">
+
+<meta property="og:title" content="Uml Continued - Peculiar Computing">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://svanellewee.github.io/posts/uml-continued/">
+<meta property="og:image" content="http://svanellewee.github.io/images/default.png">
+<meta property="og:site_name" content="Peculiar Computing">
+<meta property="og:description" content="Previously I managed to build UML (User-mode Linux) but using the host filesystem as it&amp;rsquo;s filesystem. I wanted to go a step further and replace that as well.Here goes. So far the best example of how to do this lives in the busybox repositories&amp;rsquo; own git repo, in the Examples Directory I deviated from it however, since some aspects doesn&amp;rsquo;t seem required anymore (such as the uClibc compilation step)">
+<meta property="og:locale" content="ja_JP">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="Peculiar Computing">
+<meta name="twitter:url" content="http://svanellewee.github.io/posts/uml-continued/">
+<meta name="twitter:title" content="Uml Continued - Peculiar Computing">
+<meta name="twitter:description" content="Previously I managed to build UML (User-mode Linux) but using the host filesystem as it&amp;rsquo;s filesystem. I wanted to go a step further and replace that as well.Here goes. So far the best example of how to do this lives in the busybox repositories&amp;rsquo; own git repo, in the Examples Directory I deviated from it however, since some aspects doesn&amp;rsquo;t seem required anymore (such as the uClibc compilation step)">
+<meta name="twitter:image" content="http://svanellewee.github.io/images/default.png">
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id":"http://svanellewee.github.io/"
+    },
+    "headline": "Uml Continued - Peculiar Computing",
+    "image": {
+      "@type": "ImageObject",
+      "url": "http://svanellewee.github.io/images/default.png",
+      "height": 800,
+      "width": 800
+    },
+    "datePublished": "2019-04-02T21:44:52JST",
+    "dateModified": "2019-04-02T21:44:52JST",
+    "author": {
+      "@type": "Person",
+      "name": "Peculiar Computing"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Peculiar Computing",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "http://svanellewee.github.io/images/logo.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "description": "Previously I managed to build UML (User-mode Linux) but using the host filesystem as it&rsquo;s filesystem. I wanted to go a step further and replace that as well.
+Here goes. So far the best example of how to do this lives in the busybox repositories&rsquo; own git repo, in the Examples Directory I deviated from it however, since some aspects doesn&rsquo;t seem required anymore (such as the uClibc compilation step)"
+  }
+</script>
+
+
+    <link href="http://svanellewee.github.io/css/styles.css" rel="stylesheet">
+    
+
+  </head>
+
+  <body>
+    
+    
+    
+
+    <header class="l-header">
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://svanellewee.github.io/">Peculiar Computing</a>
+          </div>
+
+          
+
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container">
+        
+<div class="row">
+  <div class="col-md-8">
+
+    <nav class="p-crumb">
+      <ol class="breadcrumb">
+        <li><a href="http://svanellewee.github.io/"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+        
+        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="http://svanellewee.github.io/posts/" itemprop="url"><span itemprop="title">posts</span></a></li>
+        
+        <li class="active">Uml Continued</li>
+      </ol>
+    </nav>
+
+    <article class="single">
+  <header>
+    <ul class="p-facts">
+      <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2019-04-02T21:44:52JST">Apr 2, 2019</time></li>
+      <li><i class="fa fa-bookmark" aria-hidden="true"></i><a href="http://svanellewee.github.io/posts/">posts</a></li>
+      
+    </ul>
+
+    <h1 class="title">Uml Continued</h1>
+  </header>
+
+  
+
+  <div class="article-body">
+
+<p>Previously I managed to build UML (User-mode Linux) but using the host filesystem as it&rsquo;s filesystem. I wanted to go a step further and replace that as well.</p>
+
+<p>Here goes. So far the best example of how to do this lives in the busybox repositories&rsquo; own git repo, in the <a href="https://git.busybox.net/busybox/tree/examples/bootfloppy?id=2f28b2bdbbe229b760e7c2a271d73a19f929ca76">Examples Directory</a> I deviated from it however, since some aspects doesn&rsquo;t seem required anymore (such as the uClibc compilation step)</p>
+
+<p>To build this you need:</p>
+
+<ul>
+<li>The kernel source (obviously)</li>
+<li>The busybox source</li>
+</ul>
+
+<h2 id="the-kernel-source">The kernel source</h2>
+
+<p>To build this this time we need to support the special block device (drive) that User-Mode Linux exposes to the world namely <code>UBD?</code>.</p>
+
+<pre><code class="language-bash"># The kernel source tree that I tested this process on.
+cd linux-5.0.3/         
+
+# setup the mini config for the kernel setup
+cat &lt;&lt;EOF &gt; mini.config
+CONFIG_64BIT=y
+CONFIG_X86_64=y
+CONFIG_BINFMT_ELF=y
+CONFIG_HOSTFS=y
+CONFIG_BLOCK=y
+CONFIG_LBD=y
+CONFIG_BLK_DEV=y
+CONFIG_BLK_DEV_LOOP=y
+CONFIG_BLK_DEV_UBD=y   # to allow UML to have a ubda ubdb.. block device. This will reference our image.
+CONFIG_STDERR_CONSOLE=y
+CONFIG_UNIX98_PTYS=y
+CONFIG_MODULES=y
+CONFIG_INOTIFY_USER=y
+CONFIG_NET=y
+CONFIG_UNIX=y
+CONFIG_EXT2_FS=y
+CONFIG_EXT3_FS=y
+CONFIG_EXT4_FS=y
+CONFIG_PROC_FS=y      # for /proc pseudo filesystem support
+CONFIG_SYSFS=y        # for /sys pseudo filesystem support
+CONFIG_PROC_SYSCTL=y  # for /proc/sys support (device auto creation)
+CONFIG_TTY_CHAN=y
+EOF
+
+# make a place to put our UserModeLinux (example ~/uml)
+mkdir ~/uml
+# set every value to NO except for what's specified in mini.config
+make O=~/uml ARCH=um allnoconfig KCONFIG_ALLCONFIG=~/linux-5.0.3/mini.config
+# -j specifies the number of processors to compile on. $(nproc) provides the core count.
+make O=~/uml ARCH=um -j$(nproc)       
+</code></pre>
+
+<p>This should mean that you end up with an executable at <code>~/uml/linux</code> next we&rsquo;ll need to build the filesystem. That&rsquo;s where busybox&rsquo;s <code>bootfloppy</code> example comes in handy for clues.</p>
+
+<h2 id="the-busybox-source">The busybox source</h2>
+
+<p>Firstly make a root filesystem</p>
+
+<pre><code class="language-bash"># make a 400Meg image (Arbitrarily chosen number)
+dd if=/dev/zero of=rootfs bs=1M count=400
+
+# I want the latest EXT filesystem..
+mkfs.ext4 rootfs
+
+# Make a mount point and mount via loopback
+mkdir ~/rootfs_mnt 
+sudo mount -o loop rootfs ~/rootfs_mnt
+</code></pre>
+
+<p>Download and extract busybox</p>
+
+<pre><code class="language-bash">
+cd busybox-1.30.1
+
+make menuconfig   # remember to choose &quot;Settings --&gt; Build static binary&quot;
+
+make -j$(nproc)
+
+
+</code></pre>
+
+<p>Finally to install busybox to our new image we do the following (this assumes <code>~/rootfs_mnt</code> is still mounted)</p>
+
+<pre><code>make CONFIG_PREFIX=~/rootfs_mnt install
+
+</code></pre>
+
+<p>This should leave you with an incomplete filesystem:</p>
+
+<pre><code>cd ~/rootfs_mnt
+mkdir dev sys proc
+</code></pre>
+
+<p>Here I cheated. I used the etc from the <code>example/bootfloppy</code> directory to make my own.</p>
+
+<pre><code>cp -a ~/busybox-1.30.1/examples/bootfloppy/etc/ ~/rootfs_mnt/etc
+
+# take out the tty2::askfirst part. Not sure why this breaks.
+grep -v tty2::askfirst ~/rootfs_mnt/etc/inittab  &gt; /tmp/inittab
+cp /tmp/inittab ~/rootfs_mnt/etc/inittab
+</code></pre>
+
+<p>I use fstab to set up my <code>/sys</code> and <code>/proc</code> directories. The proc line should already be there but just in case here&rsquo;s the whole file as I have it currently</p>
+
+<pre><code>cat &lt;&lt;EOF &gt; ~/rootfs_mnt/etc/fstab
+proc /proc proc defaults 0 0
+sysfs /sys sysfs defaults 0 0
+EOF
+</code></pre>
+
+<p>The reason we want <code>sysfs</code> to be available is so that we can automate the device creation using <code>mdev</code>. There is a manual script in the <code>bootfloppy</code> example but I&rsquo;d like to see how hard <code>mdev</code> would be given that it&rsquo;s built into <code>busybox</code>.</p>
+
+<p><em>Note</em> there&rsquo;s a note on using he command <code>echo /sbin/mdev &gt; /proc/sys/kernel/hotplug</code> to allow hotplugging of devices. So far I&rsquo;ve not been able to make the <code>hotplug</code> file appear on /proc/sys. I&rsquo;ll keep trying though.</p>
+
+<p>Now we can unmount our image</p>
+
+<pre><code>umount ~/rootfs_mnt/
+</code></pre>
+
+<p>Run!</p>
+
+<pre><code>~/uml/linux ubda=rootfs root=/dev/ubda rw mem=1G
+</code></pre>
+
+<p>Now since we&rsquo;ve set up the <code>sys</code> we can just call <code>mdev -s</code> to setup our <code>/dev</code> devices directory!</p>
+</div>
+
+  <footer class="article-footer">
+    
+    
+    
+    
+    
+    
+  </footer>
+
+</article>
+
+
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "svanellewee" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+
+  <div class="col-md-4">
+    
+<aside class="l-sidebar">
+
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">LATESTS</div>
+    </div>
+    <div class="list-group">
+      
+      <a href="http://svanellewee.github.io/posts/uml-continued/" class="list-group-item">Uml Continued</a>
+      
+      <a href="http://svanellewee.github.io/posts/virtualbox-efi-linux/" class="list-group-item">Virtualbox Efi Linux</a>
+      
+      <a href="http://svanellewee.github.io/posts/user-mode-linux/" class="list-group-item">User Mode Linux</a>
+      
+      <a href="http://svanellewee.github.io/posts/building-for-a-real-device/" class="list-group-item">Building for a Real Device</a>
+      
+      <a href="http://svanellewee.github.io/posts/build-a-kernel-from-scratch/" class="list-group-item">Build a Kernel From Scratch</a>
+      
+      <a href="http://svanellewee.github.io/posts/create-a-grub-file/" class="list-group-item">Create a Grub File For Our Toy Linux</a>
+      
+      <a href="http://svanellewee.github.io/posts/bootstrap-a-linux/" class="list-group-item">Creating a minimal environment to bootstrap the Linux Kernel</a>
+      
+    </div>
+  </section>
+
+  
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">CATEGORY</div>
+    </div>
+    <div class="list-group">
+      
+    </div>
+  </section>
+  
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">TAG</div>
+    </div>
+    <div class="list-group">
+      
+    </div>
+  </section>
+  
+
+</aside>
+
+
+  </div>
+</div>
+
+      </div>
+    </main>
+
+    <footer class="l-footer">
+      <div class="container">
+        <p><span class="h-logo">&copy; Peculiar Computing</span></p>
+        <aside>
+          <p>Powered by <a href="https://gohugo.io/">Hugo</a>.</p>
+          <p><a href="https://github.com/dim0627/hugo_theme_beg">Beg</a> designed by <a href="http://yet.unresolved.xyz/">Daisuke Tsuji</a>.</p>
+        </aside>
+      </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+
