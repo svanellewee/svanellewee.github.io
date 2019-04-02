@@ -187,17 +187,17 @@ make O=~/uml ARCH=um -j$(nproc)
 
 <h2 id="the-busybox-source">The busybox source</h2>
 
-<p>Firstly make a root filesystem</p>
+<p>Firstly make a root filesystem at <code>/tmp/rootfs</code> for example:</p>
 
 <pre><code class="language-bash"># make a 400Meg image (Arbitrarily chosen number)
-dd if=/dev/zero of=rootfs bs=1M count=400
+dd if=/dev/zero of=/tmp/rootfs bs=1M count=400
 
 # I want the latest EXT filesystem..
 mkfs.ext4 rootfs
 
 # Make a mount point and mount via loopback
 mkdir ~/rootfs_mnt 
-sudo mount -o loop rootfs ~/rootfs_mnt
+sudo mount -o loop /tmp/rootfs ~/rootfs_mnt
 </code></pre>
 
 <p>Download and extract busybox</p>
@@ -250,12 +250,36 @@ EOF
 <pre><code>umount ~/rootfs_mnt/
 </code></pre>
 
-<p>Run!</p>
+<p>Run our image that we made (I suggested <code>/tmp/rootfs</code> as a name and path)</p>
 
-<pre><code>~/uml/linux ubda=rootfs root=/dev/ubda rw mem=1G
+<pre><code>~/uml/linux ubda=/tmp/rootfs root=/dev/ubda rw mem=1G
 </code></pre>
 
 <p>Now since we&rsquo;ve set up the <code>sys</code> we can just call <code>mdev -s</code> to setup our <code>/dev</code> devices directory!</p>
+
+<h2 id="what-to-do-next">What to do next?</h2>
+
+<p>How about we run a couple of User-mode linuxes on one machine?</p>
+
+<pre><code>
+cp /tmp/rootfs /tmp/rootfs1
+cp /tmp/rootfs /tmp/rootfs2
+cp /tmp/rootfs /tmp/rootfs3
+cp /tmp/rootfs /tmp/rootfs4
+cp /tmp/rootfs /tmp/rootfs5
+
+cat &lt;&lt;&quot;EOF&quot; &gt;demo-uml.sh
+for index in {1..5}
+do
+   xterm -e ~/uml/linux ubda=/tmp/rootfs${index} root=/dev/ubda rw mem=500M &amp;
+done
+EOF
+bash ./demo-uml.sh
+</code></pre>
+
+<p>Here are the windows, after I moved them a little</p>
+
+<p><img src="/many-linuxes.png" alt="Many Linuxes" /></p>
 </div>
 
   <footer class="article-footer">
