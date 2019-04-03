@@ -6,10 +6,20 @@
     <description>Recent content on Peculiar Computing</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 02 Apr 2019 21:44:52 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 03 Apr 2019 20:42:49 +0200</lastBuildDate>
     
 	<atom:link href="http://svanellewee.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Avr Gcc Toolchain</title>
+      <link>http://svanellewee.github.io/posts/avr-gcc-toolchain/</link>
+      <pubDate>Wed, 03 Apr 2019 20:42:49 +0200</pubDate>
+      
+      <guid>http://svanellewee.github.io/posts/avr-gcc-toolchain/</guid>
+      <description>Intro I have currently bought me my first Arduino UNO.. At least it says it&amp;rsquo;s an UNO.. To my surprise all the examples uses C++ as the lingua franca of examples. This was disappointing as I wanted something a little more C-related. At the time, I thought getting the latest GCC for avr working I would have to compile it myself.
+TL;DR Here&amp;rsquo;s the script I ended up with to build AVR GCC and friends.</description>
+    </item>
     
     <item>
       <title>Uml Continued</title>

@@ -144,7 +144,7 @@ Here goes. So far the best example of how to do this lives in the busybox reposi
 
 <h2 id="the-kernel-source">The kernel source</h2>
 
-<p>To build this this time we need to support the special block device (drive) that User-Mode Linux exposes to the world namely <code>UBD?</code>.</p>
+<p>To build everything this time we need to support the special block device (drive) that User-Mode Linux exposes to the world namely <code>UBD?</code>.</p>
 
 <pre><code class="language-bash"># The kernel source tree that I tested this process on.
 cd linux-5.0.3/         
@@ -183,7 +183,7 @@ make O=~/uml ARCH=um allnoconfig KCONFIG_ALLCONFIG=~/linux-5.0.3/mini.config
 make O=~/uml ARCH=um -j$(nproc)       
 </code></pre>
 
-<p>This should mean that you end up with an executable at <code>~/uml/linux</code> next we&rsquo;ll need to build the filesystem. That&rsquo;s where busybox&rsquo;s <code>bootfloppy</code> example comes in handy for clues.</p>
+<p>This should mean that you end up with an executable at <code>~/uml/linux</code>. Next we&rsquo;ll need to build the filesystem and that&rsquo;s where busybox&rsquo;s <code>bootfloppy</code> example comes in handy for clues.</p>
 
 <h2 id="the-busybox-source">The busybox source</h2>
 
@@ -277,7 +277,7 @@ EOF
 bash ./demo-uml.sh
 </code></pre>
 
-<p>Here are the windows, after I moved them a little</p>
+<p>Here are the windows, after I moved them around a bit</p>
 
 <p><img src="/many-linuxes.png" alt="Many Linuxes" /></p>
 </div>
@@ -325,6 +325,8 @@ bash ./demo-uml.sh
       <div class="panel-title">LATESTS</div>
     </div>
     <div class="list-group">
+      
+      <a href="http://svanellewee.github.io/posts/avr-gcc-toolchain/" class="list-group-item">Avr Gcc Toolchain</a>
       
       <a href="http://svanellewee.github.io/posts/uml-continued/" class="list-group-item">Uml Continued</a>
       

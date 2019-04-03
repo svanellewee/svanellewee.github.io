@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="pinterest" content="nopin">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.53" />
+
+
+
+<link rel="canonical" href="http://svanellewee.github.io/posts/avr-gcc-toolchain/">
+
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/solarized_dark.min.css">
+    <title>Avr Gcc Toolchain - Peculiar Computing</title>
+    
+<meta name="description" content="Intro I have currently bought me my first Arduino UNO.. At least it says it&amp;rsquo;s an UNO.. To my surprise all the examples uses C&#43;&#43; as the lingua franca of examples. This was disappointing as I wanted something a little more C-related. At the time, I thought getting the latest GCC for avr working I would have to compile it myself.TL;DR Here&amp;rsquo;s the script I ended up with to build AVR GCC and friends.">
+
+<meta property="og:title" content="Avr Gcc Toolchain - Peculiar Computing">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://svanellewee.github.io/posts/avr-gcc-toolchain/">
+<meta property="og:image" content="http://svanellewee.github.io/images/default.png">
+<meta property="og:site_name" content="Peculiar Computing">
+<meta property="og:description" content="Intro I have currently bought me my first Arduino UNO.. At least it says it&amp;rsquo;s an UNO.. To my surprise all the examples uses C&#43;&#43; as the lingua franca of examples. This was disappointing as I wanted something a little more C-related. At the time, I thought getting the latest GCC for avr working I would have to compile it myself.TL;DR Here&amp;rsquo;s the script I ended up with to build AVR GCC and friends.">
+<meta property="og:locale" content="ja_JP">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="Peculiar Computing">
+<meta name="twitter:url" content="http://svanellewee.github.io/posts/avr-gcc-toolchain/">
+<meta name="twitter:title" content="Avr Gcc Toolchain - Peculiar Computing">
+<meta name="twitter:description" content="Intro I have currently bought me my first Arduino UNO.. At least it says it&amp;rsquo;s an UNO.. To my surprise all the examples uses C&#43;&#43; as the lingua franca of examples. This was disappointing as I wanted something a little more C-related. At the time, I thought getting the latest GCC for avr working I would have to compile it myself.TL;DR Here&amp;rsquo;s the script I ended up with to build AVR GCC and friends.">
+<meta name="twitter:image" content="http://svanellewee.github.io/images/default.png">
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id":"http://svanellewee.github.io/"
+    },
+    "headline": "Avr Gcc Toolchain - Peculiar Computing",
+    "image": {
+      "@type": "ImageObject",
+      "url": "http://svanellewee.github.io/images/default.png",
+      "height": 800,
+      "width": 800
+    },
+    "datePublished": "2019-04-03T20:42:49JST",
+    "dateModified": "2019-04-03T20:42:49JST",
+    "author": {
+      "@type": "Person",
+      "name": "Peculiar Computing"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Peculiar Computing",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "http://svanellewee.github.io/images/logo.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "description": "Intro I have currently bought me my first Arduino UNO.. At least it says it&rsquo;s an UNO.. To my surprise all the examples uses C++ as the lingua franca of examples. This was disappointing as I wanted something a little more C-related. At the time, I thought getting the latest GCC for avr working I would have to compile it myself.
+TL;DR Here&rsquo;s the script I ended up with to build AVR GCC and friends."
+  }
+</script>
+
+
+    <link href="http://svanellewee.github.io/css/styles.css" rel="stylesheet">
+    
+
+  </head>
+
+  <body>
+    
+    
+    
+
+    <header class="l-header">
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://svanellewee.github.io/">Peculiar Computing</a>
+          </div>
+
+          
+
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container">
+        
+<div class="row">
+  <div class="col-md-8">
+
+    <nav class="p-crumb">
+      <ol class="breadcrumb">
+        <li><a href="http://svanellewee.github.io/"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+        
+        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="http://svanellewee.github.io/posts/" itemprop="url"><span itemprop="title">posts</span></a></li>
+        
+        <li class="active">Avr Gcc Toolchain</li>
+      </ol>
+    </nav>
+
+    <article class="single">
+  <header>
+    <ul class="p-facts">
+      <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2019-04-03T20:42:49JST">Apr 3, 2019</time></li>
+      <li><i class="fa fa-bookmark" aria-hidden="true"></i><a href="http://svanellewee.github.io/posts/">posts</a></li>
+      
+    </ul>
+
+    <h1 class="title">Avr Gcc Toolchain</h1>
+  </header>
+
+  
+
+  <div class="article-body">
+
+<h2 id="intro">Intro</h2>
+
+<p>I have currently bought me my first Arduino UNO.. At least it says it&rsquo;s an UNO.. To my surprise all the examples uses C++ as the lingua franca of examples. This was disappointing as I wanted something a little more C-related. At the time, I thought getting the latest GCC for avr working I would have to compile it myself.</p>
+
+<h3 id="tl-dr">TL;DR</h3>
+
+<p>Here&rsquo;s the script I ended up with to build AVR GCC and friends. If you want to build for a 64 bit machine just leave out all the <code>-m32</code> lines in the script. (I have a busted old laptop I want to do this stuff on)</p>
+
+<pre><code class="language-bash">#!/usr/bin/env bash
+# Instructions from https://www.nongnu.org/avr-libc/user-manual/install_tools.html
+# From ftp://ftp.lip6.fr/pub/gcc/releases/gcc-8.3.0/gcc-8.3.0.tar.xz
+PREFIX=&quot;${HOME}&quot;/opt/cross/avr-32/
+TARGET=avr
+export PATH=&quot;${PREFIX}/bin:${PATH}&quot;
+export CFLAGS=-m32
+export LDFLAGS=-m32
+export CXXFLAGS=-m32
+
+BINUTILS=binutils-2.32
+BINUTILS_ARCHIVE=&quot;${BINUTILS}.tar.xz&quot;
+if [[ ! -f &quot;${BINUTILS_ARCHIVE}&quot; ]]
+then
+    wget https://ftp.gnu.org/gnu/binutils/${BINUTILS_ARCHIVE}
+fi
+if [[ ! -d  &quot;${BINUTILS}&quot; ]]
+then
+    tar -xvf &quot;${BINUTILS_ARCHIVE}&quot;
+    cd &quot;${BINUTILS}&quot;
+    mkdir build-dir &amp;&amp; cd build-dir/
+    ../configure --prefix=&quot;${PREFIX}&quot;  --target=&quot;${TARGET}&quot; --disable-nls
+    make &amp;&amp; make install
+    if [[ $? -ne 0 ]]
+    then
+        echo &quot;failed to build &quot;${BINUTILS}&quot;&quot;
+        exit 1
+    fi
+    cd ../../
+fi
+
+
+GCC_VERSION=gcc-8.3.0
+GCC_ARCHIVE=&quot;${GCC_VERSION}.tar.xz&quot;
+if [[ ! -f &quot;${GCC_ARCHIVE}&quot; ]]
+then
+    wget ftp://ftp.lip6.fr/pub/gcc/releases/${GCC_VERSION}/${GCC_ARCHIVE}
+fi
+if [[ !  -d  &quot;${GCC_VERSION}&quot; ]]
+then
+    tar -xvf  &quot;${GCC_ARCHIVE}&quot; 
+    cd &quot;${GCC_VERSION}&quot;
+    cp ../deps/* .
+    ./contrib/download_prerequisites
+    mkdir build-dir &amp;&amp; cd build-dir
+    ../configure  --prefix=&quot;${PREFIX}&quot;  --target=&quot;${TARGET}&quot; --enable-languages=c --disable-nls --disable-libssp --with-dwarf2
+    make &amp;&amp; make install
+    if [[ $? -ne 0 ]]
+    then
+        echo &quot;failed to build &quot;${GCC_VERSION}&quot;&quot;
+        exit 1
+    fi
+    cd ../../
+fi
+
+
+AVR_LIB=avr-libc-2.0.0
+AVR_LIB_ARCHIVE=&quot;${AVR_LIB}.tar.bz2&quot;
+if [[ ! -f &quot;${AVR_LIB_ARCHIVE}&quot; ]]
+then
+    wget http://download.savannah.gnu.org/releases/avr-libc/&quot;${AVR_LIB_ARCHIVE}&quot;
+fi
+if [[ ! -d &quot;${AVR_LIB}&quot; ]]
+then
+    tar -xvf &quot;${AVR_LIB_ARCHIVE}&quot;
+    cd &quot;${AVR_LIB}&quot;
+    mkdir build-dir &amp;&amp; cd build-dir/
+    ../configure --prefix=&quot;${PREFIX}&quot;  --target=&quot;${TARGET}&quot; --build=$(./config.guess) --host=avr
+    make &amp;&amp; make install
+    if [[ $? -ne 0 ]]
+    then
+        echo &quot;failed to build &quot;${AVR_LIB}&quot;&quot;
+        exit 1
+    fi
+    cd ../../
+fi
+
+AVRDUDE=avrdude-6.3
+AVRDUDE_ARCHIVE=&quot;${AVRDUDE}.tar.gz&quot;
+if [[ ! -f &quot;${AVRDUDE_ARCHIVE}&quot; ]] 
+then
+    wget http://download.savannah.gnu.org/releases/avrdude/&quot;${AVRDUDE_ARCHIVE}&quot;
+fi
+if [[ ! -d &quot;${AVRDUDE}&quot; ]]
+then
+    tar -xvf &quot;${AVRDUDE}&quot;.tar.gz
+    cd &quot;${AVRDUDE}&quot;
+    mkdir build-dir &amp;&amp; cd build-dir
+    ../configure --prefix=&quot;${PREFIX}&quot; 
+    make &amp;&amp; make install
+    if [[ $? -ne 0 ]]
+    then
+        echo &quot;failed to build &quot;${AVRDUDE}&quot;&quot;
+        exit 1
+    fi
+    cd ../../
+fi
+
+
+GDB=gdb-8.2
+GDB_ARCHIVE=&quot;${GDB}.tar.xz&quot;
+if [[ ! -f &quot;${GDB_ARCHIVE}&quot; ]]
+then
+    wget https://ftp.gnu.org/gnu/gdb/&quot;${GDB_ARCHIVE}&quot;
+fi
+if [[ ! -d &quot;${GDB}&quot; ]]
+then
+    tar -xvf &quot;${GDB}&quot;.tar.xz
+    cd &quot;${GDB}&quot;
+    mkdir build-dir &amp;&amp; cd build-dir
+    ../configure --prefix=&quot;${PREFIX}&quot;  --target=&quot;${TARGET}&quot;
+    make &amp;&amp; make install
+    if [[ $? -ne 0 ]]
+    then
+        echo &quot;failed to build &quot;${GDB}&quot;&quot;
+    fi
+    cd ../../
+fi
+
+
+</code></pre>
+
+<p>This builds everything from <code>avr-libc</code>, <code>gcc</code>, <code>gdb</code> and <code>avrdude</code> for a 32bit pc. It also follows most of the <a href="https://www.nongnu.org/avr-libc/user-manual/install_tools.html">avr-libc</a> instructions.</p>
+
+<p><em>Fun Fact</em> I built this on a 64bit machine, to run on a 32bit machine, to compile for an 8bit microcontroller. To use the nomenclature:
+- The 64bit machine I built this one is called the &ldquo;build machine&rdquo;
+- The 32bit machine I want to run this gcc on is called the &ldquo;host machine&rdquo;
+- The 8bit micro I want to run the output of the gcc is called the &ldquo;target machine&rdquo;
+If my understanding of <a href="https://crosstool-ng.github.io/docs/toolchain-types/">crosstool-ng</a> and <a href="https://en.wikipedia.org/wiki/Cross_compiler#Canadian_Cross">wikipedia</a> is correct, this counts as an *<em>Canadian Cross Toolchain</em>.</p>
+
+<p>So now no more excuses. I can finally build avr using the latest (at time of writing) gcc and friends.</p>
+
+<p><em>Fun Fact2</em> So it looks like an older avr-gcc is also available with the Arduino IDE&hellip;<em>sigh</em> At least I learnt something ;-)</p>
+</div>
+
+  <footer class="article-footer">
+    
+    
+    
+    
+    
+    
+  </footer>
+
+</article>
+
+
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "svanellewee" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+
+  <div class="col-md-4">
+    
+<aside class="l-sidebar">
+
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">LATESTS</div>
+    </div>
+    <div class="list-group">
+      
+      <a href="http://svanellewee.github.io/posts/avr-gcc-toolchain/" class="list-group-item">Avr Gcc Toolchain</a>
+      
+      <a href="http://svanellewee.github.io/posts/uml-continued/" class="list-group-item">Uml Continued</a>
+      
+      <a href="http://svanellewee.github.io/posts/virtualbox-efi-linux/" class="list-group-item">Virtualbox Efi Linux</a>
+      
+      <a href="http://svanellewee.github.io/posts/user-mode-linux/" class="list-group-item">User Mode Linux</a>
+      
+      <a href="http://svanellewee.github.io/posts/building-for-a-real-device/" class="list-group-item">Building for a Real Device</a>
+      
+      <a href="http://svanellewee.github.io/posts/build-a-kernel-from-scratch/" class="list-group-item">Build a Kernel From Scratch</a>
+      
+      <a href="http://svanellewee.github.io/posts/create-a-grub-file/" class="list-group-item">Create a Grub File For Our Toy Linux</a>
+      
+      <a href="http://svanellewee.github.io/posts/bootstrap-a-linux/" class="list-group-item">Creating a minimal environment to bootstrap the Linux Kernel</a>
+      
+    </div>
+  </section>
+
+  
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">CATEGORY</div>
+    </div>
+    <div class="list-group">
+      
+    </div>
+  </section>
+  
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">TAG</div>
+    </div>
+    <div class="list-group">
+      
+    </div>
+  </section>
+  
+
+</aside>
+
+
+  </div>
+</div>
+
+      </div>
+    </main>
+
+    <footer class="l-footer">
+      <div class="container">
+        <p><span class="h-logo">&copy; Peculiar Computing</span></p>
+        <aside>
+          <p>Powered by <a href="https://gohugo.io/">Hugo</a>.</p>
+          <p><a href="https://github.com/dim0627/hugo_theme_beg">Beg</a> designed by <a href="http://yet.unresolved.xyz/">Daisuke Tsuji</a>.</p>
+        </aside>
+      </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+
