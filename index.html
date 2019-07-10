@@ -4,7 +4,7 @@
     <meta charset="utf-8">
 <meta name="pinterest" content="nopin">
 <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-<meta name="generator" content="Hugo 0.53" />
+<meta name="generator" content="Hugo 0.55.6" />
 
 <link rel="alternate" type="application/rss+xml" title="RSS" href="http://svanellewee.github.io/index.xml">
 
@@ -55,183 +55,6 @@
 
     <ul class="p-articles">
       
-      <li><article class="li">
-  <header>
-    <ul class="p-facts">
-      <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2019-04-03T20:42:49JST">Apr 3, 2019</time></li>
-      <li><i class="fa fa-bookmark" aria-hidden="true"></i><a href="http://svanellewee.github.io/posts/">posts</a></li>
-      
-    </ul>
-    <h2 class="title"><a href="http://svanellewee.github.io/posts/avr-gcc-toolchain/">Avr Gcc Toolchain</a></h2>
-  </header>
-
-  
-  <div class="summary">Intro I have currently bought me my first Arduino UNO.. At least it says it&rsquo;s an UNO.. To my surprise all the examples uses C++ as the lingua franca of examples. This was disappointing as I wanted something a little more C-related. At the time, I thought getting the latest GCC for avr working I would have to compile it myself.
-TL;DR Here&rsquo;s the script I ended up with to build AVR GCC and friends.</div>
-
-  
-  <footer>
-    <a href="http://svanellewee.github.io/posts/avr-gcc-toolchain/" title="Avr Gcc Toolchain">Read More…</a>
-  </footer>
-  
-</article>
-</li>
-      
-      <li><article class="li">
-  <header>
-    <ul class="p-facts">
-      <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2019-04-02T21:44:52JST">Apr 2, 2019</time></li>
-      <li><i class="fa fa-bookmark" aria-hidden="true"></i><a href="http://svanellewee.github.io/posts/">posts</a></li>
-      
-    </ul>
-    <h2 class="title"><a href="http://svanellewee.github.io/posts/uml-continued/">Uml Continued</a></h2>
-  </header>
-
-  
-  <div class="summary">Previously I managed to build UML (User-mode Linux) but using the host filesystem as it&rsquo;s filesystem. I wanted to go a step further and replace that as well.
-Here goes. So far the best example of how to do this lives in the busybox repositories&rsquo; own git repo, in the Examples Directory I deviated from it however, since some aspects doesn&rsquo;t seem required anymore (such as the uClibc compilation step)</div>
-
-  
-  <footer>
-    <a href="http://svanellewee.github.io/posts/uml-continued/" title="Uml Continued">Read More…</a>
-  </footer>
-  
-</article>
-</li>
-      
-      <li><article class="li">
-  <header>
-    <ul class="p-facts">
-      <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2019-03-20T06:00:19JST">Mar 20, 2019</time></li>
-      <li><i class="fa fa-bookmark" aria-hidden="true"></i><a href="http://svanellewee.github.io/posts/">posts</a></li>
-      
-    </ul>
-    <h2 class="title"><a href="http://svanellewee.github.io/posts/virtualbox-efi-linux/">Virtualbox Efi Linux</a></h2>
-  </header>
-
-  
-  <div class="summary">I&rsquo;ve been using QEMU for my previous posts, but since I&rsquo;d like to experiment with EFI a bit more, I&rsquo;ve decided to move my efforts to a VirtualBox, since it seems to have EFI support baked in.
-In order to make this post a little less of a repeat of the previous posts, I&rsquo;ve attempted to write more of the post, in code and just explain how each snippet works and can be used.</div>
-
-  
-  <footer>
-    <a href="http://svanellewee.github.io/posts/virtualbox-efi-linux/" title="Virtualbox Efi Linux">Read More…</a>
-  </footer>
-  
-</article>
-</li>
-      
-      <li><article class="li">
-  <header>
-    <ul class="p-facts">
-      <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2019-03-19T11:22:25JST">Mar 19, 2019</time></li>
-      <li><i class="fa fa-bookmark" aria-hidden="true"></i><a href="http://svanellewee.github.io/posts/">posts</a></li>
-      
-    </ul>
-    <h2 class="title"><a href="http://svanellewee.github.io/posts/user-mode-linux/">User Mode Linux</a></h2>
-  </header>
-
-  
-  <div class="summary">Intro In my study of the linux kernel I recently learned about the concept of &ldquo;User-mode Linux&rdquo;. This allows you to run a linux kernel as an executable. (In other words, Linux running on Linux.)
-Why run Linux inside of Linux ? There are various reasons. You can run gdb to validate the latest kernel code changes, conveniently from within your current system and using your old kernel. You can setup your own virtualization, even create a network of these linux executables.</div>
-
-  
-  <footer>
-    <a href="http://svanellewee.github.io/posts/user-mode-linux/" title="User Mode Linux">Read More…</a>
-  </footer>
-  
-</article>
-</li>
-      
-      <li><article class="li">
-  <header>
-    <ul class="p-facts">
-      <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2019-01-29T21:52:23JST">Jan 29, 2019</time></li>
-      <li><i class="fa fa-bookmark" aria-hidden="true"></i><a href="http://svanellewee.github.io/posts/">posts</a></li>
-      
-    </ul>
-    <h2 class="title"><a href="http://svanellewee.github.io/posts/building-for-a-real-device/">Building for a Real Device</a></h2>
-  </header>
-
-  
-  <div class="summary">So the other day my buddy Shane gifted me an old ASUS transformer (T100TA). Very generious of him! Since it&rsquo;s a windows laptop and I&rsquo;m a masochist, I obviously wanted to install Linux on it. Luckily a lot of the work was done already by this gentleman. Some additional notes was found here After some wrestling1 with the debian non-free multi-arch netinstaller, I managed to get a running 32bit debian installation!</div>
-
-  
-  <footer>
-    <a href="http://svanellewee.github.io/posts/building-for-a-real-device/" title="Building for a Real Device">Read More…</a>
-  </footer>
-  
-</article>
-</li>
-      
-      <li><article class="li">
-  <header>
-    <ul class="p-facts">
-      <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2019-01-16T21:34:16JST">Jan 16, 2019</time></li>
-      <li><i class="fa fa-bookmark" aria-hidden="true"></i><a href="http://svanellewee.github.io/posts/">posts</a></li>
-      
-    </ul>
-    <h2 class="title"><a href="http://svanellewee.github.io/posts/build-a-kernel-from-scratch/">Build a Kernel From Scratch</a></h2>
-  </header>
-
-  
-  <div class="summary">In the previous post I borrowed the kernel files from my current Ubuntu 16.04 distribution. After that I set up a grub menu to speed up testing time.
-Let&rsquo;s grab some kernel sourcecode
-wget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.20.2.tar.xz  The new goal is to compile the smallest most bare bones kernel we can muster. This according to Mitchel Humphrey&rsquo;s excellent 2015 post on this allnoconfig is just the thing we need. I&rsquo;m going to follow his example.</div>
-
-  
-  <footer>
-    <a href="http://svanellewee.github.io/posts/build-a-kernel-from-scratch/" title="Build a Kernel From Scratch">Read More…</a>
-  </footer>
-  
-</article>
-</li>
-      
-      <li><article class="li">
-  <header>
-    <ul class="p-facts">
-      <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2019-01-16T20:48:58JST">Jan 16, 2019</time></li>
-      <li><i class="fa fa-bookmark" aria-hidden="true"></i><a href="http://svanellewee.github.io/posts/">posts</a></li>
-      
-    </ul>
-    <h2 class="title"><a href="http://svanellewee.github.io/posts/create-a-grub-file/">Create a Grub File For Our Toy Linux</a></h2>
-  </header>
-
-  
-  <div class="summary">So after the previous post I promised I was going to show how to make a nifty grub menu so that we won&rsquo;t have to keep typing all the commands manually to boot the kernel.
-Turns out it&rsquo;s quite simple:
-cat &lt;&lt;EOF | sudo tee /mnt/boot_mount/boot/grub/grub.cfg menuentry &quot;Boot up the kernel&quot; { set root=&quot;(hd0,msdos2)&quot; linux /kernels/vmlinuz-4.10.0-27-generic root=/dev/sda1 initrd /kernels/initrd.img-4.10.0-27-generic boot } EOF sync # you need to do this to commit the changes to the virtual drive # Now you can run the emulator again qemu-system-x86_64 -drive format=raw,file=virtual-disk.</div>
-
-  
-  <footer>
-    <a href="http://svanellewee.github.io/posts/create-a-grub-file/" title="Create a Grub File For Our Toy Linux">Read More…</a>
-  </footer>
-  
-</article>
-</li>
-      
-      <li><article class="li">
-  <header>
-    <ul class="p-facts">
-      <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2019-01-03T21:42:31JST">Jan 3, 2019</time></li>
-      <li><i class="fa fa-bookmark" aria-hidden="true"></i><a href="http://svanellewee.github.io/posts/">posts</a></li>
-      
-    </ul>
-    <h2 class="title"><a href="http://svanellewee.github.io/posts/bootstrap-a-linux/">Creating a minimal environment to bootstrap the Linux Kernel</a></h2>
-  </header>
-
-  
-  <div class="summary">Intro Here are some notes for creating a very minimal test environment for the linux kernel. This version will re-use the host operating system&rsquo;s kernel to get things going. Follow-up posts will compile the kernel and initial ramdisk from scratch.
-Assumptions  We&rsquo;re using an Ubuntu 16.04 as our host machine. It comes with almost all the applications we need to build the virtual disk and machine. (We&rsquo;ll also be &ldquo;borrowing&rdquo; the host&rsquo;s kernel and init ram disk files.</div>
-
-  
-  <footer>
-    <a href="http://svanellewee.github.io/posts/bootstrap-a-linux/" title="Creating a minimal environment to bootstrap the Linux Kernel">Read More…</a>
-  </footer>
-  
-</article>
-</li>
-      
     </ul>
 
     
@@ -247,22 +70,6 @@ Assumptions  We&rsquo;re using an Ubuntu 16.04 as our host machine. It comes wit
       <div class="panel-title">LATESTS</div>
     </div>
     <div class="list-group">
-      
-      <a href="http://svanellewee.github.io/posts/avr-gcc-toolchain/" class="list-group-item">Avr Gcc Toolchain</a>
-      
-      <a href="http://svanellewee.github.io/posts/uml-continued/" class="list-group-item">Uml Continued</a>
-      
-      <a href="http://svanellewee.github.io/posts/virtualbox-efi-linux/" class="list-group-item">Virtualbox Efi Linux</a>
-      
-      <a href="http://svanellewee.github.io/posts/user-mode-linux/" class="list-group-item">User Mode Linux</a>
-      
-      <a href="http://svanellewee.github.io/posts/building-for-a-real-device/" class="list-group-item">Building for a Real Device</a>
-      
-      <a href="http://svanellewee.github.io/posts/build-a-kernel-from-scratch/" class="list-group-item">Build a Kernel From Scratch</a>
-      
-      <a href="http://svanellewee.github.io/posts/create-a-grub-file/" class="list-group-item">Create a Grub File For Our Toy Linux</a>
-      
-      <a href="http://svanellewee.github.io/posts/bootstrap-a-linux/" class="list-group-item">Creating a minimal environment to bootstrap the Linux Kernel</a>
       
     </div>
   </section>
