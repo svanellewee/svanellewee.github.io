@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="pinterest" content="nopin">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.55.6" />
+
+
+
+<link rel="canonical" href="http://svanellewee.github.io/posts/uml-networking/">
+
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/solarized_dark.min.css">
+    <title>Uml Networking - Peculiar Computing</title>
+    
+<meta name="description" content="Having a virtual machine just sitting there isn&amp;rsquo;t terribly exciting. How about we get networking going?The filesystem (again) In my previous entries I&amp;rsquo;ve tried to build a filesystem from scratch, multiple times. I was concerned I might leave some essential device or module out, but I also wanted the most minimal filesystem I could get to prevent unnecessary bloat.I then turned to Buildroot to automate most of the work of filesystem creation that I was doing manually in the other posts.">
+
+<meta property="og:title" content="Uml Networking - Peculiar Computing">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://svanellewee.github.io/posts/uml-networking/">
+<meta property="og:image" content="http://svanellewee.github.io/images/default.png">
+<meta property="og:site_name" content="Peculiar Computing">
+<meta property="og:description" content="Having a virtual machine just sitting there isn&amp;rsquo;t terribly exciting. How about we get networking going?The filesystem (again) In my previous entries I&amp;rsquo;ve tried to build a filesystem from scratch, multiple times. I was concerned I might leave some essential device or module out, but I also wanted the most minimal filesystem I could get to prevent unnecessary bloat.I then turned to Buildroot to automate most of the work of filesystem creation that I was doing manually in the other posts.">
+<meta property="og:locale" content="ja_JP">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="Peculiar Computing">
+<meta name="twitter:url" content="http://svanellewee.github.io/posts/uml-networking/">
+<meta name="twitter:title" content="Uml Networking - Peculiar Computing">
+<meta name="twitter:description" content="Having a virtual machine just sitting there isn&amp;rsquo;t terribly exciting. How about we get networking going?The filesystem (again) In my previous entries I&amp;rsquo;ve tried to build a filesystem from scratch, multiple times. I was concerned I might leave some essential device or module out, but I also wanted the most minimal filesystem I could get to prevent unnecessary bloat.I then turned to Buildroot to automate most of the work of filesystem creation that I was doing manually in the other posts.">
+<meta name="twitter:image" content="http://svanellewee.github.io/images/default.png">
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id":"http:\/\/svanellewee.github.io\/"
+    },
+    "headline": "Uml Networking - Peculiar Computing",
+    "image": {
+      "@type": "ImageObject",
+      "url": "http:\/\/svanellewee.github.io\/images\/default.png",
+      "height": 800,
+      "width": 800
+    },
+    "datePublished": "2019-07-09T19:54:31JST",
+    "dateModified": "2019-07-09T19:54:31JST",
+    "author": {
+      "@type": "Person",
+      "name": "Peculiar Computing"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Peculiar Computing",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "http:\/\/svanellewee.github.io\/images/logo.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "description": "Having a virtual machine just sitting there isn\x26rsquo;t terribly exciting. How about we get networking going?\nThe filesystem (again) In my previous entries I\x26rsquo;ve tried to build a filesystem from scratch, multiple times. I was concerned I might leave some essential device or module out, but I also wanted the most minimal filesystem I could get to prevent unnecessary bloat.\nI then turned to Buildroot to automate most of the work of filesystem creation that I was doing manually in the other posts."
+  }
+</script>
+
+
+    <link href="http://svanellewee.github.io/css/styles.css" rel="stylesheet">
+    
+
+  </head>
+
+  <body>
+    
+    
+    
+
+    <header class="l-header">
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://svanellewee.github.io/">Peculiar Computing</a>
+          </div>
+
+          
+
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container">
+        
+<div class="row">
+  <div class="col-md-8">
+
+    <nav class="p-crumb">
+      <ol class="breadcrumb">
+        <li><a href="http://svanellewee.github.io/"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+        
+        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="http://svanellewee.github.io/posts/" itemprop="url"><span itemprop="title">posts</span></a></li>
+        
+        <li class="active">Uml Networking</li>
+      </ol>
+    </nav>
+
+    <article class="single">
+  <header>
+    <ul class="p-facts">
+      <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2019-07-09T19:54:31JST">Jul 9, 2019</time></li>
+      <li><i class="fa fa-bookmark" aria-hidden="true"></i><a href="http://svanellewee.github.io/posts/">posts</a></li>
+      
+    </ul>
+
+    <h1 class="title">Uml Networking</h1>
+  </header>
+
+  
+
+  <div class="article-body">
+
+<p>Having a virtual machine just sitting there isn&rsquo;t terribly exciting. How about we get networking going?</p>
+
+<h2 id="the-filesystem-again">The filesystem (again)</h2>
+
+<p>In my previous entries I&rsquo;ve tried to build a filesystem from scratch, multiple times. I was concerned I might leave some essential device or module out, but I also wanted the most minimal filesystem I could get to prevent unnecessary bloat.</p>
+
+<p>I then turned to <a href="https://buildroot.org/">Buildroot</a> to automate most of the work of filesystem creation that I was doing manually in the other posts. Figuring out how to configure it correctly was quite tricky. After a lot of googling later I found <a href="https://unix.stackexchange.com/questions/73203/how-to-create-rootfs-for-user-mode-linux-on-fedora-18/372207#372207">this post</a> as a good starting point. I&rsquo;ll reproduce it here, just in case, with a few of my own notes and changes.</p>
+
+<p>Firstly we set up the buildroot configuration with the qemu x86 configuration as base. The <code>BR2_ROOTFS_OVERLAY</code> setting was meant to allow you to add files to your new filesystem after it has been created, in this case, it will be the init system&rsquo;s configuration (see later)</p>
+
+<pre><code class="language-bash">git clone git://git.buildroot.net/buildroot
+cd buildroot
+git checkout 2019.05.1
+make qemu_x86_64_defconfig
+echo 'BR2_ROOTFS_OVERLAY=&quot;rootfs_overlay&quot;' &gt;&gt;.config
+make olddefconfig
+</code></pre>
+
+<p>Getting sysinit configuration working is usually quite challenging, so I&rsquo;m quite greatful SO&rsquo;s Mr Santilli was so generious with his information.</p>
+
+<pre><code class="language-bash"># Make the custom inittab inside the rootfs overlay directory
+mkdir -p rootfs_overlay/etc
+printf '
+::sysinit:/bin/mount -t proc proc /proc
+::sysinit:/bin/mount -o remount,rw /
+::sysinit:/bin/mkdir -p /dev/pts
+::sysinit:/bin/mkdir -p /dev/shm
+::sysinit:/bin/mount -a
+::sysinit:/sbin/mdev -s
+::sysinit:/bin/hostname -F /etc/hostname
+::sysinit:/etc/init.d/rcS
+console::respawn:/sbin/getty -n -L console 0 vt100
+::ctrlaltdel:/sbin/reboot
+::shutdown:/etc/init.d/rcK
+::shutdown:/sbin/swapoff -a
+::shutdown:/bin/umount -a -r
+' &gt; rootfs_overlay/etc/inittab
+</code></pre>
+
+<p>I have also manually selected the latest linux kernel and headers (at time of writing, that would be <code>5.1.x</code>)</p>
+
+<pre><code class="language-bash"># Build image.
+make BR2_JLEVEL=$(($(nproc)-2))
+</code></pre>
+
+<p>For future reference I&rsquo;ve added some notes on a <a href="https://gist.github.com/svanellewee/22414b800b320e40445a431c732f29fe">gist to keep me honest</a></p>
+
+<p>Anyway this should get the filesystem working.</p>
+
+<h2 id="building-yet-another-kernel">Building yet another kernel</h2>
+
+<p>To build the kernel, I&rsquo;ve cheated a little, using Arch Linux&rsquo;s AUR magic. What I like about Arch&rsquo;s Linux approach to packages, is that it&rsquo;s so minimalist. It&rsquo;s basically just bash. Even if you run another distro, you can still infer how to build the package just by looking at the bash script.</p>
+
+<pre><code class="language-bash">pkgname=linux-usermode
+true &amp;&amp; pkgname=(linux-usermode linux-usermode-modules)
+pkgbase=linux-usermode
+_kernelname=-usermodelinux
+_srcname=linux-5.1.16
+pkgver=5.1.16
+pkgrel=1
+pkgdesc=&quot;User mode Linux kernel and modules&quot;
+arch=('x86_64')
+license=('GPL2')
+url=&quot;http://user-mode-linux.sourceforge.net/&quot;
+depends=('coreutils')
+makedepends=('bc' 'inetutils' 'gcc')
+source=(
+  http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.{xz,sign}
+  #http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.{xz,sign}
+  http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz
+  config)
+
+sha256sums=('8a3e55be3e788700836db6f75875b4d3b824a581d1eacfc2fcd29ed4e727ba3e' 
+            'cb1fbbe695c7d2fd39b9e36fd23c5256d1d65c7dd813ec30e2ecfc0ae2a9f333'
+            '62521554a7c13151a6b7d58e0093656b45fa9a6de06e127e96725a897dc2813a'
+            '0c6ca2df8b072b1fa1c13d290e2c1f0c97d872419f4bf8c2fd813a29e79c5626')
+
+validpgpkeys=(
+  'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
+  '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
+)
+
+prepare() {
+  cd &quot;${srcdir}/${_srcname}&quot;
+
+  # add upstream patch
+  #patch -p1 -i &quot;${srcdir}/patch-${pkgver}&quot;
+
+  cat ../config - &gt;.config &lt;&lt;END
+CONFIG_LOCALVERSION=&quot;${_kernelname}&quot;
+CONFIG_LOCALVERSION_AUTO=n
+END
+
+  # set extraversion to pkgrel
+  sed -i &quot;/^EXTRAVERSION =/s/=.*/= -${pkgrel}/&quot; Makefile
+
+  # rewrite configuration
+  yes &quot;&quot; | make ARCH=um config &gt;/dev/null
+}
+
+build() {
+  cd &quot;${srcdir}/${_srcname}&quot;
+  unset LDFLAGS CFLAGS
+
+  make ARCH=um CC=gcc vmlinux modules 
+}
+
+package_linux-usermode() {
+  cd &quot;${srcdir}/${_srcname}&quot;
+  mkdir -p &quot;$pkgdir/usr/bin&quot; &quot;$pkgdir/usr/share/kernel-usermode&quot;
+  install -m 644 System.map ${pkgdir}/usr/share/kernel-usermode/System.map
+  install -m 755 vmlinux ${pkgdir}/usr/bin/
+}
+
+package_linux-usermode-modules() {
+  install=modules.install
+
+  cd &quot;${srcdir}/${_srcname}&quot;
+
+  # get kernel version, but discard the first result
+  make ARCH=um kernelrelease &gt; /dev/null
+  _kernver=&quot;$(make ARCH=um kernelrelease)&quot;
+
+  #  make ARCH=um INSTALL_MOD_PATH=&quot;${pkgdir}/usr&quot; modules_install
+  make ARCH=um INSTALL_MOD_PATH=&quot;${pkgdir}/usr&quot; _modinst_
+  rm -f $pkgdir/usr/lib/modules/${_kernver}/{source,build}
+  sed \
+    -e &quot;s/KERNEL_VERSION=.*/KERNEL_VERSION=${_kernver}/g&quot; \
+    -i &quot;${startdir}/modules.install&quot;
+}
+
+</code></pre>
+
+<p>Of course, building and installing the 2 new packages are as usual for Arch:</p>
+
+<pre><code class="language-bash">makepkg
+sudo pacman -U linux-usermode-5.1.16-1-x86_64.pkg.tar.xz linux-usermode-modules-5.1.16-1-x86_64.pkg.tar.xz
+
+</code></pre>
+
+<h2 id="running-one-usermode-linux-instance">Running one Usermode Linux Instance</h2>
+
+<p>After installing the usermode linux kernel next we should run an instance. On the host&rsquo;s side a &lsquo;tapX&rsquo; device will appear with ip <code>192.168.0.254</code>. In this case it is <code>tap0</code>.</p>
+
+<pre><code class="language-bash">cd ~/source/buildroot
+vmlinux mem=1G ubd0=output/images/rootfs.ext2 eth0=tuntap,,,192.168.0.254
+</code></pre>
+
+<p>There should a long string of startup logs, followed by</p>
+
+<pre><code>....
+Starting network: 
+* modprobe tun
+* ifconfig tap0 192.168.0.254 netmask 255.255.255.255 up
+* bash -c echo 1 &gt; /proc/sys/net/ipv4/ip_forward
+udhcpc: started, v1.30.1
+udhcpc: sending discover
+udhcpc: sending discover
+udhcpc: sending discover
+udhcpc: no lease, failing
+FAIL
+Starting dockerd: OK
+
+buildroot login: root
+</code></pre>
+
+<p>Further, on the UML (guest&rsquo;s) side add an address to the local <code>eth0</code> network interface, then add a default route outward.</p>
+
+<pre><code class="language-bash">&gt; ip addr add 192.168.0.253 dev eth0
+* route add -host 192.168.0.253 dev tap0
+* bash -c echo 1 &gt; /proc/sys/net/ipv4/conf/tap0/proxy_arp
+&gt; ip route add default  via 192.168.0.253 dev eth0 
+</code></pre>
+
+<p>So there is a link between the internal(guest) eth0 device and the external(host) tun device.</p>
+
+<p>Now we want to make sure your host will know where to respond to if your UML guest makes an request.</p>
+
+<pre><code class="language-bash">HOST&gt; sudo iptables -t nat -I POSTROUTING -o wlp2s0  -j MASQUERADE
+HOST&gt; sudo iptables -I FORWARD -o tap0 -j ACCEPT
+HOST&gt; sudo iptables -I FORWARD -i tap0 -j ACCEPT
+</code></pre>
+
+<p>My interface <code>wlp2s0</code> is my host&rsquo;s physical wifi adapter. Could also have been something like <code>eth0</code> so you should just be aware how you&rsquo;re connected in real life. Another thing your virtual adapter might not be called <code>tap0</code>. It could be <code>tap1</code>, or if you made a custom one it could be <code>stephan-uml</code>. <em>The name is just a convention.</em></p>
+
+<p>To test the configuration you should be able to ping the following:</p>
+
+<pre><code class="language-bash">UML&gt; ping 192.168.0.254
+UML&gt; ping 8.8.8.8  # Google's DNS
+</code></pre>
+
+<p>If you don&rsquo;t get a response, try checking the traffic on your virtual network adapter:</p>
+
+<pre><code class="language-bash">HOST&gt; sudo tcpdump  -i tap0 -l -n
+</code></pre>
+
+<p>A big help to understanding how to debug UML networking was the <a href="http://ptgmedia.pearsoncmg.com/images/9780131865051/downloads/013865056_Dike_book.pdf">User Mode Linux Book by Jeff Dike</a> What was great though was that none of the networking debugging hints was special to UML. It was all just stock standard methods for debugging Linux networking. In this sense User Mode Linux is immencely helpful.</p>
+
+<h2 id="extra-credit-a-second-uml-instance">Extra credit: A second UML instance</h2>
+
+<pre><code class="language-bash">cd ~/source/buildroot
+cp output/images/rootfs{,-alt}.ext2     # copy the rootfs.ext2 file and give it a `-alt` suffix.
+vmlinux mem=1G ubd0=output/images/rootfs-alt.ext2 eth0=tuntap,,,192.168.0.252   # start another tap device (tap1?) with ip 192.168.0.252
+</code></pre>
+
+<p>Then after logging in as <code>root</code> on the UML do the same as previous instance (but with different IP)</p>
+
+<pre><code class="language-bash">UML&gt; ip addr add 192.168.0.251 dev eth0
+UML&gt; ip route add default  via 192.168.0.251 dev eth0
+UML&gt; ping 192.168.0.253   # can you ping the other UML ? Probably not
+UML&gt; ping 8.8.8.8 # Won't work.. why?
+</code></pre>
+
+<p>Why won&rsquo;t this ping yet? Because you forgot to update the new tap devices iptables. Assuming your new tap device is called <code>tap1</code>..</p>
+
+<pre><code class="language-bash">HOST&gt; sudo iptables -t nat -I POSTROUTING -o wlp2s0  -j MASQUERADE
+HOST&gt; sudo iptables -I FORWARD -o tap1 -j ACCEPT
+HOST&gt; sudo iptables -I FORWARD -i tap1 -j ACCEPT
+</code></pre>
+
+<p>NOW! Pinging will happen. Pinging between UML guests, pinging between hosts and UML&rsquo;s.</p>
+</div>
+
+  <footer class="article-footer">
+    
+    
+    
+    
+    
+    
+  </footer>
+
+</article>
+
+
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "svanellewee" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+
+  <div class="col-md-4">
+    
+<aside class="l-sidebar">
+
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">LATESTS</div>
+    </div>
+    <div class="list-group">
+      
+      <a href="http://svanellewee.github.io/posts/uml-networking/" class="list-group-item">Uml Networking</a>
+      
+      <a href="http://svanellewee.github.io/posts/avr-gcc-toolchain/" class="list-group-item">Avr Gcc Toolchain</a>
+      
+      <a href="http://svanellewee.github.io/posts/uml-continued/" class="list-group-item">Uml Continued</a>
+      
+      <a href="http://svanellewee.github.io/posts/virtualbox-efi-linux/" class="list-group-item">Virtualbox Efi Linux</a>
+      
+      <a href="http://svanellewee.github.io/posts/user-mode-linux/" class="list-group-item">User Mode Linux</a>
+      
+      <a href="http://svanellewee.github.io/posts/building-for-a-real-device/" class="list-group-item">Building for a Real Device</a>
+      
+      <a href="http://svanellewee.github.io/posts/build-a-kernel-from-scratch/" class="list-group-item">Build a Kernel From Scratch</a>
+      
+      <a href="http://svanellewee.github.io/posts/create-a-grub-file/" class="list-group-item">Create a Grub File For Our Toy Linux</a>
+      
+      <a href="http://svanellewee.github.io/posts/bootstrap-a-linux/" class="list-group-item">Creating a minimal environment to bootstrap the Linux Kernel</a>
+      
+    </div>
+  </section>
+
+  
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">CATEGORY</div>
+    </div>
+    <div class="list-group">
+      
+    </div>
+  </section>
+  
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">TAG</div>
+    </div>
+    <div class="list-group">
+      
+    </div>
+  </section>
+  
+
+</aside>
+
+
+  </div>
+</div>
+
+      </div>
+    </main>
+
+    <footer class="l-footer">
+      <div class="container">
+        <p><span class="h-logo">&copy; Peculiar Computing</span></p>
+        <aside>
+          <p>Powered by <a href="https://gohugo.io/">Hugo</a>.</p>
+          <p><a href="https://github.com/dim0627/hugo_theme_beg">Beg</a> designed by <a href="http://yet.unresolved.xyz/">Daisuke Tsuji</a>.</p>
+        </aside>
+      </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

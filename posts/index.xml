@@ -6,10 +6,21 @@
     <description>Recent content in Posts on Peculiar Computing</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 03 Apr 2019 20:42:49 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 09 Jul 2019 19:54:31 +0200</lastBuildDate>
     
 	<atom:link href="http://svanellewee.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Uml Networking</title>
+      <link>http://svanellewee.github.io/posts/uml-networking/</link>
+      <pubDate>Tue, 09 Jul 2019 19:54:31 +0200</pubDate>
+      
+      <guid>http://svanellewee.github.io/posts/uml-networking/</guid>
+      <description>Having a virtual machine just sitting there isn&amp;rsquo;t terribly exciting. How about we get networking going?
+The filesystem (again) In my previous entries I&amp;rsquo;ve tried to build a filesystem from scratch, multiple times. I was concerned I might leave some essential device or module out, but I also wanted the most minimal filesystem I could get to prevent unnecessary bloat.
+I then turned to Buildroot to automate most of the work of filesystem creation that I was doing manually in the other posts.</description>
+    </item>
     
     <item>
       <title>Avr Gcc Toolchain</title>

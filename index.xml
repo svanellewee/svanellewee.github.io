@@ -6,9 +6,102 @@
     <description>Recent content on Peculiar Computing</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Tue, 09 Jul 2019 19:54:31 +0200</lastBuildDate>
     
 	<atom:link href="http://svanellewee.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Uml Networking</title>
+      <link>http://svanellewee.github.io/posts/uml-networking/</link>
+      <pubDate>Tue, 09 Jul 2019 19:54:31 +0200</pubDate>
+      
+      <guid>http://svanellewee.github.io/posts/uml-networking/</guid>
+      <description>Having a virtual machine just sitting there isn&amp;rsquo;t terribly exciting. How about we get networking going?
+The filesystem (again) In my previous entries I&amp;rsquo;ve tried to build a filesystem from scratch, multiple times. I was concerned I might leave some essential device or module out, but I also wanted the most minimal filesystem I could get to prevent unnecessary bloat.
+I then turned to Buildroot to automate most of the work of filesystem creation that I was doing manually in the other posts.</description>
+    </item>
+    
+    <item>
+      <title>Avr Gcc Toolchain</title>
+      <link>http://svanellewee.github.io/posts/avr-gcc-toolchain/</link>
+      <pubDate>Wed, 03 Apr 2019 20:42:49 +0200</pubDate>
+      
+      <guid>http://svanellewee.github.io/posts/avr-gcc-toolchain/</guid>
+      <description>Intro I have currently bought me my first Arduino UNO.. At least it says it&amp;rsquo;s an UNO.. To my surprise all the examples uses C++ as the lingua franca of examples. This was disappointing as I wanted something a little more C-related. At the time, I thought getting the latest GCC for avr working I would have to compile it myself.
+TL;DR Here&amp;rsquo;s the script I ended up with to build AVR GCC and friends.</description>
+    </item>
+    
+    <item>
+      <title>Uml Continued</title>
+      <link>http://svanellewee.github.io/posts/uml-continued/</link>
+      <pubDate>Tue, 02 Apr 2019 21:44:52 +0200</pubDate>
+      
+      <guid>http://svanellewee.github.io/posts/uml-continued/</guid>
+      <description>Previously I managed to build UML (User-mode Linux) but using the host filesystem as it&amp;rsquo;s filesystem. I wanted to go a step further and replace that as well.
+Here goes. So far the best example of how to do this lives in the busybox repositories&amp;rsquo; own git repo, in the Examples Directory I deviated from it however, since some aspects doesn&amp;rsquo;t seem required anymore (such as the uClibc compilation step)</description>
+    </item>
+    
+    <item>
+      <title>Virtualbox Efi Linux</title>
+      <link>http://svanellewee.github.io/posts/virtualbox-efi-linux/</link>
+      <pubDate>Wed, 20 Mar 2019 06:00:19 +0200</pubDate>
+      
+      <guid>http://svanellewee.github.io/posts/virtualbox-efi-linux/</guid>
+      <description>I&amp;rsquo;ve been using QEMU for my previous posts, but since I&amp;rsquo;d like to experiment with EFI a bit more, I&amp;rsquo;ve decided to move my efforts to a VirtualBox, since it seems to have EFI support baked in.
+In order to make this post a little less of a repeat of the previous posts, I&amp;rsquo;ve attempted to write more of the post, in code and just explain how each snippet works and can be used.</description>
+    </item>
+    
+    <item>
+      <title>User Mode Linux</title>
+      <link>http://svanellewee.github.io/posts/user-mode-linux/</link>
+      <pubDate>Tue, 19 Mar 2019 11:22:25 +0200</pubDate>
+      
+      <guid>http://svanellewee.github.io/posts/user-mode-linux/</guid>
+      <description>Intro In my study of the linux kernel I recently learned about the concept of &amp;ldquo;User-mode Linux&amp;rdquo;. This allows you to run a linux kernel as an executable. (In other words, Linux running on Linux.)
+Why run Linux inside of Linux ? There are various reasons. You can run gdb to validate the latest kernel code changes, conveniently from within your current system and using your old kernel. You can setup your own virtualization, even create a network of these linux executables.</description>
+    </item>
+    
+    <item>
+      <title>Building for a Real Device</title>
+      <link>http://svanellewee.github.io/posts/building-for-a-real-device/</link>
+      <pubDate>Tue, 29 Jan 2019 21:52:23 +0200</pubDate>
+      
+      <guid>http://svanellewee.github.io/posts/building-for-a-real-device/</guid>
+      <description>So the other day my buddy Shane gifted me an old ASUS transformer (T100TA). Very generious of him! Since it&amp;rsquo;s a windows laptop and I&amp;rsquo;m a masochist, I obviously wanted to install Linux on it. Luckily a lot of the work was done already by this gentleman. Some additional notes was found here After some wrestling1 with the debian non-free multi-arch netinstaller, I managed to get a running 32bit debian installation!</description>
+    </item>
+    
+    <item>
+      <title>Build a Kernel From Scratch</title>
+      <link>http://svanellewee.github.io/posts/build-a-kernel-from-scratch/</link>
+      <pubDate>Wed, 16 Jan 2019 21:34:16 +0200</pubDate>
+      
+      <guid>http://svanellewee.github.io/posts/build-a-kernel-from-scratch/</guid>
+      <description>In the previous post I borrowed the kernel files from my current Ubuntu 16.04 distribution. After that I set up a grub menu to speed up testing time.
+Let&amp;rsquo;s grab some kernel sourcecode
+wget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.20.2.tar.xz  The new goal is to compile the smallest most bare bones kernel we can muster. This according to Mitchel Humphrey&amp;rsquo;s excellent 2015 post on this allnoconfig is just the thing we need. I&amp;rsquo;m going to follow his example.</description>
+    </item>
+    
+    <item>
+      <title>Create a Grub File For Our Toy Linux</title>
+      <link>http://svanellewee.github.io/posts/create-a-grub-file/</link>
+      <pubDate>Wed, 16 Jan 2019 20:48:58 +0200</pubDate>
+      
+      <guid>http://svanellewee.github.io/posts/create-a-grub-file/</guid>
+      <description>So after the previous post I promised I was going to show how to make a nifty grub menu so that we won&amp;rsquo;t have to keep typing all the commands manually to boot the kernel.
+Turns out it&amp;rsquo;s quite simple:
+cat &amp;lt;&amp;lt;EOF | sudo tee /mnt/boot_mount/boot/grub/grub.cfg menuentry &amp;quot;Boot up the kernel&amp;quot; { set root=&amp;quot;(hd0,msdos2)&amp;quot; linux /kernels/vmlinuz-4.10.0-27-generic root=/dev/sda1 initrd /kernels/initrd.img-4.10.0-27-generic boot } EOF sync # you need to do this to commit the changes to the virtual drive # Now you can run the emulator again qemu-system-x86_64 -drive format=raw,file=virtual-disk.</description>
+    </item>
+    
+    <item>
+      <title>Creating a minimal environment to bootstrap the Linux Kernel</title>
+      <link>http://svanellewee.github.io/posts/bootstrap-a-linux/</link>
+      <pubDate>Thu, 03 Jan 2019 21:42:31 +0200</pubDate>
+      
+      <guid>http://svanellewee.github.io/posts/bootstrap-a-linux/</guid>
+      <description>Intro Here are some notes for creating a very minimal test environment for the linux kernel. This version will re-use the host operating system&amp;rsquo;s kernel to get things going. Follow-up posts will compile the kernel and initial ramdisk from scratch.
+Assumptions  We&amp;rsquo;re using an Ubuntu 16.04 as our host machine. It comes with almost all the applications we need to build the virtual disk and machine. (We&amp;rsquo;ll also be &amp;ldquo;borrowing&amp;rdquo; the host&amp;rsquo;s kernel and init ram disk files.</description>
+    </item>
     
   </channel>
 </rss>
